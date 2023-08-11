@@ -19,7 +19,7 @@
   <!-- JQUERY -->
   <script src="../js/jquery.min.js"></script>
   <!-- CSS -->
-  
+  <link href="../css/main.css" rel="stylesheet">
 
 </head>
 
