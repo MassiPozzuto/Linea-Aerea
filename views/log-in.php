@@ -1,3 +1,6 @@
+<?php
+include '../controllers/login.php';
+?>
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../css/bootstrap.css">
 
@@ -13,7 +16,7 @@
             <div class="col-md-6 col-lg-7 d-flex align-items-center">
               <div class="card-body p-4 p-lg-5 text-black">
 
-                <form>
+                <form action="login.php" method="POST">
 
                   <div class="d-flex align-items-center mb-3 pb-1">
                     <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
@@ -24,12 +27,12 @@
 
                   <div class="form-outline mb-4">
                     <label class="form-label" for="form2Example17">Correo Electronico:</label>
-                    <input type="email" id="form2Example17" class="form-control form-control-lg" />
+                    <input type="email" id="form2Example17" name="email" class="form-control form-control-lg" />
                   </div>
 
                   <div class="form-outline mb-4">
                     <label class="form-label" for="form2Example27">Contraseña:</label>
-                    <input type="password" id="form2Example27" class="form-control form-control-lg" />
+                    <input type="password" id="form2Example27" name="password" class="form-control form-control-lg" />
                     <a class="small text-muted" href="#!">No recordas la contraseña?</a>
                   </div>
 

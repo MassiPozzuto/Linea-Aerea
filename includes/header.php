@@ -23,8 +23,13 @@
         <li class="container_dropdown" id="container_dropdown-info">
             <a href="" class="">INFORMACION</a>
             <ul class="container__dropdown--header dropdown dropdown-info">
+<<<<<<< HEAD
                 <li><a href="">Quienes somos</a></li>
                 <li><a href="">Nuestra flota</a></li>
+=======
+                <li><a href="views/quienessomos.php">Quienes somos</a></li>
+                <li><a href="">La flota de aviones</a></li>
+>>>>>>> 1494812117f56e551a49e4f236f1d5bd4670e10c
                 <li><a href="">Gastronomia de los vuelos</a></li>
             </ul>
 

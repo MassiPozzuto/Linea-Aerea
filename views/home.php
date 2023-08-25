@@ -1,3 +1,7 @@
+<?php
+include '../controllers/checkauth.php';
+?>
+
 <div class="container__form-reserve">
     <ul class="container__submenu-reserve">
         <li class="submenu__reserve-item <?php echo ($_GET["activeTab"] == "flights") ? "active" : null;?>" id="submenu__reserve-flights"><a href="#"><i class="bi bi-airplane-fill"></i> <span>VUELOS</span></a></li>
