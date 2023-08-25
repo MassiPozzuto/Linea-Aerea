@@ -1,0 +1,132 @@
+.container__images-home img{
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+}
+
+.container__form-reserve {
+    width: 100%;
+    /*height: 480px;*/
+    background-color: white;
+    border-radius: 0.25rem;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px 0px;
+    
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+    margin-top: -81px;
+    /*margin: -81px auto 0px;*/
+}
+
+.container__submenu-reserve{
+    display: flex;
+    list-style: none;
+    width: 100%;
+    /*box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px 0px;*/
+}
+
+.container__submenu-reserve li{
+    width: 100%;
+    
+}
+
+.submenu__reserve-item a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+    height: 5rem;
+    padding: 10px 15px;
+    color: #000;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    border-top: 3.5px solid transparent;
+    border-bottom: 3.5px solid transparent;
+    transition: 200ms;
+}
+
+.submenu__reserve-item.active a {
+    color: #ffa01b;
+    border-bottom-color: #ffa01b;
+}
+
+.submenu__reserve-item  a:hover {
+    border-bottom-color: #ffa01b;
+}
+
+.submenu__reserve-item a i {
+    margin-right: 10px;
+}
+
+.container__forms {
+    padding: 20px;
+}
+
+@media (max-width: 1025px){
+    .container {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .container__images-home img {
+        height: 400px;
+    }
+
+    .container__form-reserve {
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .submenu__reserve-item a {
+        height: 4rem;
+    }
+
+}
+
+@media (max-width: 780px){
+    .submenu__reserve-item a span {
+        display: none;
+    }
+}
+
+.container__type-flight {
+    display: flex;
+    margin-bottom: 25px;
+}
+
+.container__checkbox-ida {
+    margin-right: 20px;
+}
+
+.container__data-flight {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+.item__data-flight {
+    display: flex;
+    flex-direction: column;
+}
+
+.container__submit-flight {
+    display: flex;
+    justify-content: center;
+}
+
+.container__submit-flight button{
+    width: 45%;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: #ffa01b;
+    color: #FFF;
+    cursor: pointer;
+}
