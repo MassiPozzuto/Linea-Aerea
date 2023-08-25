@@ -20,6 +20,7 @@
                                 <img src="../img/gettyimages-528363573-091201.jpg" alt="Imagen de registro"
                                     class="img-fluid" style="border-radius: 1rem 0 0 1rem;">
                             </div>
+                            <form action="register.php" method="POST">
                             <div class="col-xl-6">
                                 <div class="card-body p-md-5 text-black">
                                     <h3 class="mb-5 text-uppercase">Registro de Sesión</h3>
@@ -28,12 +29,12 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label class="form-label" for="form3Example1m">Nombre:</label>
-                                                <input type="text" id="form3Example1m"
+                                                <input type="text" name="name" id="form3Example1m"
                                                     class="form-control form-control-lg">
                                             </div>
                                             <div class="col-md-6">
                                                 <label class="form-label" for="form3Example1n">Apellido:</label>
-                                                <input type="text" id="form3Example1n"
+                                                <input type="text" name="surname" id="form3Example1n"
                                                     class="form-control form-control-lg">
                                             </div>
                                         </div>
@@ -41,13 +42,13 @@
 
                                     <div class="mb-4">
                                         <label class="form-label" for="form3Example8">Email:</label>
-                                        <input type="text" id="form3Example8" class="form-control form-control-lg">
+                                        <input type="text" id="form3Example8" name="email" class="form-control form-control-lg">
                                     </div>
 
                                     <div class="mb-4">
                                         <label class="form-label" for="form3Example9">Contraseña: </label>
                                         <div class="input-group">
-                                            <input type="password" id="form3Example9"
+                                            <input type="password" name="password" id="form3Example9"
                                                 class="form-control form-control-lg">
                                             <button id="togglePassword" class="btn btn-outline-secondary" type="button">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
@@ -89,12 +90,12 @@
 
                                     <div class="mb-4">
                                         <label class="form-label" for="form3Example9">Teléfono:</label>
-                                        <input type="text" id="form3Example9" class="form-control form-control-lg">
+                                        <input type="text" id="form3Example9" name="telefono" class="form-control form-control-lg">
                                     </div>
 
                                     <div class="mb-4">
                                         <label class="form-label" for="form3Example90">DNI:</label>
-                                        <input type="text" id="form3Example90" class="form-control form-control-lg">
+                                        <input type="text" id="form3Example90" name="dni"  class="form-control form-control-lg">
                                     </div>
 
                                     <div class="d-flex justify-content-end pt-3">
@@ -108,6 +109,7 @@
                 </div>
             </div>
         </div>
+        </form>
     </section>
 </body>
 
