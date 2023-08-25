@@ -12,7 +12,7 @@
   <!-- FONTS -->
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
   <!-- BOOTSTRAP -->
-  <script src="../js/bootstrap.bundle.js"></script>
+  <!--<script src="../js/bootstrap.bundle.js"></script>-->
   <link href="../css/bootstrap.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <!-- JQUERY -->

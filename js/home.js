@@ -1,15 +1,21 @@
-<div class="container__form-reserve">
-    <ul class="container__submenu-reserve">
-        <li class="submenu__reserve-item <?php echo ($_GET["activeTab"] == "flights") ? "active" : null;?>" id="submenu__reserve-flights"><a href="#"><i class="bi bi-airplane-fill"></i> <span>VUELOS</span></a></li>
-        <li class="submenu__reserve-item <?php echo ($_GET["activeTab"] == "checkin") ? "active" : null;?>" id="submenu__reserve-checkin"><a href="#"><i class="bi bi-bag-check-fill"></i> <span>CHECK IN</span></a></li>
-        <li class="submenu__reserve-item <?php echo ($_GET["activeTab"] == "flightStatus") ? "active" : null;?>" id="submenu__reserve-flight-status"><a href="#"><i class="bi bi-clock-history"></i> <span>ESTADO DE VUELO</span></a></li>
-    </ul>
+// Contenido de los formularios dependiendo de la pagina
+const itemVuelos = document.getElementById('submenu__reserve-flights');
+const itemCheckIn = document.getElementById('submenu__reserve-checkin');
+const itemEstadoVuelo = document.getElementById('submenu__reserve-flight-status');
+      
+itemVuelos.addEventListener('click', function(event) {
+    if(!$(itemVuelos).hasClass("active")){
+        $(itemCheckIn).removeClass("active")
+        $(itemEstadoVuelo).removeClass("active")
+        $(itemVuelos).addClass("active")
+        
+        if(window.history.pushState)
+            window.history.pushState(null, null, "http://127.0.0.1/Linea-Aerea/controllers/home.php?activeTab=flights");
 
-    <div class="container__forms">
-        <form action="" method="POST" id="form__reserve">
-            <?php 
-            if($_GET["activeTab"] == "flights") { ?>
-                <div class="container__type-flight">
+        $("#form__reserve").empty()
+
+        $("#form__reserve").append(
+                `<div class="container__type-flight">
                     <div class="form-group container__checkbox-ida">
                         <input type="checkbox" name="checkbox_ida" id="checkbox_ida">
                         <span>Ida</span>
@@ -57,11 +63,23 @@
                 <div class="form-group container__submit-flight">
                     <button type="submit">Buscar vuelos</button>
                 </div>
-                
-                <script src="../js/ida_vuelta.js" type="text/javascript"></script>
-            <?php 
-            } else if ($_GET["activeTab"] == "checkin") { ?>
-                <div class="container__data-flight">
+                <script src="../js/ida_vuelta.js" type="text/javascript"></script>`)
+    }
+});
+
+itemCheckIn.addEventListener('click', function(event) {
+    if(!$(itemCheckIn).hasClass("active")){
+        $(itemVuelos).removeClass("active")
+        $(itemEstadoVuelo).removeClass("active")
+        $(itemCheckIn).addClass("active")
+
+        if(window.history.pushState)
+            window.history.pushState(null, null, "http://127.0.0.1/Linea-Aerea/controllers/home.php?activeTab=checkin");
+
+        $("#form__reserve").empty()
+
+        $("#form__reserve").append(
+                `<div class="container__data-flight">
                     <div class="form-group item__data-flight">
                         <label class="form-label" >Código de reserva</label>
                         <input type="text" name="" id="">
@@ -75,17 +93,21 @@
 
                 <div class="form-group container__submit-flight">
                     <button type="submit">Comenzar Check-In</button>
-                </div>
-            <?php 
-            } else if ($_GET["activeTab"] == "flightStatus") { ?>
+                </div>`)
+    }
+});
+
+itemEstadoVuelo.addEventListener('click', function(event) {
+    if(!$(itemEstadoVuelo).hasClass("active")){
+        $(itemVuelos).removeClass("active")
+        $(itemCheckIn).removeClass("active")
+        $(itemEstadoVuelo).addClass("active")
+
+        if(window.history.pushState)
+            window.history.pushState(null, null, "http://127.0.0.1/Linea-Aerea/controllers/home.php?activeTab=flightStatus");
+
+        $("#form__reserve").empty()
+    }
+});
 
 
-            <?php 
-            } ?>
-        </form>
-    </div>
-
-</div>
-
-
-<script src="../js/home.js" type="text/javascript"></script>

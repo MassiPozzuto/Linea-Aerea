@@ -8,7 +8,7 @@
 
     <ul class="container__list-buttons">
         <li class="container__btn-home">
-            <a href="">RESERVAR</a>
+            <a href="home.php?activeTab=flights">RESERVAR</a>
         </li>
         <li class="container_dropdown" id="container_dropdown-manage">
             <a href="" class="">GESTIONAR</a>
@@ -24,7 +24,7 @@
             <a href="" class="">INFORMACION</a>
             <ul class="container__dropdown--header dropdown dropdown-info">
                 <li><a href="">Quienes somos</a></li>
-                <li><a href="">La flota de aviones</a></li>
+                <li><a href="">Nuestra flota</a></li>
                 <li><a href="">Gastronomia de los vuelos</a></li>
             </ul>
 
