@@ -23,11 +23,15 @@
                 <div class="container__data-flight">
                     <div class="form-group item__data-flight">
                         <label class="form-label" >Origen</label>
-                        <input type="date" name="lugar_origen" id="">
+                        <select class="" name="lugar_origen" id="lugar_origen" >
+                            <option value="Origen" hidden disabled selected>Origen</option>
+                        </select>
                     </div>
                     <div class="form-group item__data-flight">
                         <label class="form-label" >Destino</label>
-                        <input type="date" name="lugar_destino" id="">
+                        <select class="" name="lugar_destino" id="lugar_destino" >
+                            <option value="Destino" hidden disabled selected>Destino</option>
+                        </select>
                     </div>
 
                     <div class="form-group item__data-flight">

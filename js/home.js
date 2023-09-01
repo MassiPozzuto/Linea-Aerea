@@ -1,3 +1,31 @@
+
+$.ajax({
+    url: "../api/get_airports.php",
+    type: "POST",
+    dataType: "JSON",
+    success: function (data) {
+        console.log(data);
+        
+        let aeropuertos = data.aeropuertos;
+        let code_html_origen = "";
+        let code_html_destino = "";
+
+        aeropuertos.forEach((aeropuerto) => {
+            code_html_origen += `
+            <option value="${aeropuerto.ubicacion}" id="aeropuerto_origen_${aeropuerto.id}">${aeropuerto.ubicacion}</option>`;
+
+            code_html_destino += `
+            <option value="${aeropuerto.ubicacion}" id="aeropuerto_destino_${aeropuerto.id}">${aeropuerto.ubicacion}</option>`;
+        });
+        
+        $("#lugar_origen").append(code_html_origen);
+        $("#lugar_destino").append(code_html_origen);
+        /*$.fn.select2.defaults.set("language", "es");
+        $("#lugar_origen").select2({ width: 170 });
+        $("#lugar_destino").select2({ width: 170 });*/
+    }
+});
+
 // Contenido de los formularios dependiendo de la pagina
 const itemVuelos = document.getElementById('submenu__reserve-flights');
 const itemCheckIn = document.getElementById('submenu__reserve-checkin');
@@ -29,11 +57,25 @@ itemVuelos.addEventListener('click', function(event) {
                 <div class="container__data-flight">
                     <div class="form-group item__data-flight">
                         <label class="form-label" >Origen</label>
-                        <input type="date" name="lugar_origen" id="">
+                        <select class="" name="lugar_origen" id="lugar_origen" >
+                            <option value="Origen" hidden disabled selected>Origen</option>
+                            <?php 
+                            foreach($aeropuertos as $aeropuerto){ ?>
+                                <option value="<?php echo $aeropuerto['id'] ?>"><?php echo utf8_encode($aeropuerto['ubicacion']) ?></option>
+                            <?php }
+                            ?>
+                        </select>
                     </div>
                     <div class="form-group item__data-flight">
                         <label class="form-label" >Destino</label>
-                        <input type="date" name="lugar_destino" id="">
+                        <select class="" name="lugar_destino" id="lugar_destino" >
+                            <option value="Destino" hidden disabled selected>Destino</option>
+                            <?php 
+                            foreach($aeropuertos as $aeropuerto){ ?>
+                                <option value="<?php echo $aeropuerto['id'] ?>"><?php echo utf8_encode($aeropuerto['ubicacion']) ?></option>
+                            <?php }
+                            ?>
+                        </select>
                     </div>
 
                     <div class="form-group item__data-flight">

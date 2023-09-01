@@ -25,4 +25,4 @@ if ((isset($_COOKIE['email']) || isset($_COOKIE['password'])) && !isset($_SESSIO
 
 
 // Change character set to utf8
-//sqlsrv_set_charset($conn, "utf8");
+//mysqli_set_charset($conn, "utf8");
