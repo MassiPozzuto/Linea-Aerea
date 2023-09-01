@@ -1,8 +1,3 @@
-<?php
-include '../controllers/login.php';
-?>
-<link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="../css/bootstrap.css">
 
 <section class="vh-100" style="background-color: #73B1FF;">
   <div class="container py-5 h-100">

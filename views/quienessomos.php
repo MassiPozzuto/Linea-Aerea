@@ -1,19 +1,3 @@
-<link href="../css/style.css" rel="stylesheet">
-<!-- BOOTSTRAP -->
-<script src="../js/bootstrap.bundle.js"></script>
-<link href="../css/bootstrap.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-<!-- JQUERY -->
-<script src="../js/jquery.min.js"></script>
-<!-- CSS -->
-<link href="../css/main.css" rel="stylesheet">
-<link href="../css/<?php echo $section ?>.css" rel="stylesheet">
-
-<?php
-// Traigo el header
-require_once('../includes/header.php');
-?>
-
 <section class="quienes-somos">
     <h2>Quiénes Somos</h2>
     <p>Me destapé otro Moët

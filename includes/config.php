@@ -4,12 +4,12 @@ date_default_timezone_set('America/Argentina/Buenos_Aires');
 define('RUTA', '/Linea-Aerea');
 define('CANT_REG_PAG', 30);
 
-//$conn = mysqli_connect('localhost', 'root', '', '--');
-
-$conn = sqlsrv_connect("localhost", ["Database" => "Linea-Aerea"]);
+$connectionInfo = array( "Database"=>"Linea-Aerea");
+$conn = sqlsrv_connect( "DESKTOP-QB22C4J\SQLEXPRESS", $connectionInfo);
 
 if (!$conn) {
-  die('Error de Conexión (' . print_r(sqlsrv_errors(), true) . ') ');
+  echo "Conexión no se pudo establecer.<br />";
+  die( print_r( sqlsrv_errors(), true));
 }
 
 session_start();

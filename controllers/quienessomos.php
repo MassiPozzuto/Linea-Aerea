@@ -1,7 +1,7 @@
 <?php
 
 
-$page = "Despacito";
-$section = "home12";
+$page = "Quienes somos";
+$section = "quienessomos";
 require_once "../views/layout.php";
 ?>

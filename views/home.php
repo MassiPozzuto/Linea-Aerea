@@ -1,7 +1,3 @@
-<?php
-include '../controllers/checkauth.php';
-?>
-
 <div class="container__form-reserve">
     <ul class="container__submenu-reserve">
         <li class="submenu__reserve-item <?php echo ($_GET["activeTab"] == "flights") ? "active" : null;?>" id="submenu__reserve-flights"><a href="#"><i class="bi bi-airplane-fill"></i> <span>VUELOS</span></a></li>
@@ -62,7 +58,6 @@ include '../controllers/checkauth.php';
                     <button type="submit">Buscar vuelos</button>
                 </div>
                 
-                <script src="../js/ida_vuelta.js" type="text/javascript"></script>
             <?php 
             } else if ($_GET["activeTab"] == "checkin") { ?>
                 <div class="container__data-flight">
@@ -90,6 +85,5 @@ include '../controllers/checkauth.php';
     </div>
 
 </div>
-
 
 <script src="../js/home.js" type="text/javascript"></script>

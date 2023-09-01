@@ -62,8 +62,7 @@ itemVuelos.addEventListener('click', function(event) {
 
                 <div class="form-group container__submit-flight">
                     <button type="submit">Buscar vuelos</button>
-                </div>
-                <script src="../js/ida_vuelta.js" type="text/javascript"></script>`)
+                </div>`)
     }
 });
 
@@ -109,5 +108,35 @@ itemEstadoVuelo.addEventListener('click', function(event) {
         $("#form__reserve").empty()
     }
 });
+
+
+// Checkbox de ida e ida y vuelta
+document.getElementById('form__reserve').addEventListener('click', (event) => {
+    const idaCheckbox = document.getElementById('checkbox_ida');
+    const idaVueltaCheckbox = document.getElementById('checkbox_ida-vuelta');
+
+    if(event.target.id == "checkbox_ida"){
+        if (idaCheckbox.checked) {
+            idaVueltaCheckbox.checked = false;
+    
+            $("#fecha_regreso").parent().remove()
+            $("#label-fecha_salida").html("Fecha")
+    
+        } else if (!idaCheckbox.checked) {
+            idaCheckbox.checked = true
+        }
+    } else if (event.target.id == "checkbox_ida-vuelta"){
+        if (idaVueltaCheckbox.checked) {
+            idaCheckbox.checked = false;
+    
+            $("#fecha_salida").parent().after(`<div class="form-group item__data-flight">
+                                                    <label class="form-label" >Regreso</label>
+                                                    <input type="date" name="fecha_regreso" id="fecha_regreso">
+                                                </div>`);
+        } else if (!idaVueltaCheckbox.checked) {
+            idaVueltaCheckbox.checked = true
+        }
+    }
+})
 
 

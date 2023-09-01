@@ -24,27 +24,10 @@
 </head>
 
 <body>
-
-  <?php
-  // Traigo el header
-  require_once('../includes/header.php');
-
-
-  if($section == "home"){
-  ?>
-    <div class="container__images-home">
-      <img src="../img/aeropuerto3.jpg" alt="">
-    </div>
-  <?php 
-  }?>
-
   <!-- Empieza el contenido especifico -->
-  <div class="container">
     <?php require_once($section . ".php") ?>
-  </div>
   <!-- Termina el contenido especifico -->
 
-  <script src="../js/main.js" type="text/javascript"></script>
 </body>
 
 </html>
