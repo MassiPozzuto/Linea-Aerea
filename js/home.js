@@ -1,30 +1,38 @@
+loadAirports();
 
-$.ajax({
-    url: "../api/get_airports.php",
-    type: "POST",
-    dataType: "JSON",
-    success: function (data) {
-        console.log(data);
+function loadAirports() {
+    $.ajax({
+        url: "../api/get_airports.php",
+        type: "POST",
+        dataType: "JSON",
+        success: function (data) {
+            console.log(data);
         
-        let aeropuertos = data.aeropuertos;
-        let code_html_origen = "";
-        let code_html_destino = "";
+            let aeropuertos = data.aeropuertos;
+            let code_html_origen = "";
+            let code_html_destino = "";
+            let i = 1;
 
-        aeropuertos.forEach((aeropuerto) => {
-            code_html_origen += `
-            <option value="${aeropuerto.ubicacion}" id="aeropuerto_origen_${aeropuerto.id}">${aeropuerto.ubicacion}</option>`;
+            aeropuertos.forEach((aeropuerto) => {
+                code_html_origen += `
+                    <option value="${i}" id="aeropuerto_origen_${aeropuerto.id}">${aeropuerto.ubicacion}</option>`;
 
-            code_html_destino += `
-            <option value="${aeropuerto.ubicacion}" id="aeropuerto_destino_${aeropuerto.id}">${aeropuerto.ubicacion}</option>`;
-        });
+                code_html_destino += `
+                    <option value="${i}" id="aeropuerto_destino_${aeropuerto.id}">${aeropuerto.ubicacion}</option>`;
+                i++
+            });
         
-        $("#lugar_origen").append(code_html_origen);
-        $("#lugar_destino").append(code_html_origen);
-        /*$.fn.select2.defaults.set("language", "es");
-        $("#lugar_origen").select2({ width: 170 });
-        $("#lugar_destino").select2({ width: 170 });*/
-    }
-});
+            $("#lugar_origen").append(code_html_origen);
+            $("#lugar_destino").append(code_html_destino);
+        }
+    });
+}
+
+
+
+
+
+
 
 // Contenido de los formularios dependiendo de la pagina
 const itemVuelos = document.getElementById('submenu__reserve-flights');
@@ -56,45 +64,35 @@ itemVuelos.addEventListener('click', function(event) {
 
                 <div class="container__data-flight">
                     <div class="form-group item__data-flight">
-                        <label class="form-label" >Origen</label>
-                        <select class="" name="lugar_origen" id="lugar_origen" >
+                        <label class="form-label">Origen</label>
+                        <select class="form__reserve-input" name="lugar_origen" id="lugar_origen">
                             <option value="Origen" hidden disabled selected>Origen</option>
-                            <?php 
-                            foreach($aeropuertos as $aeropuerto){ ?>
-                                <option value="<?php echo $aeropuerto['id'] ?>"><?php echo utf8_encode($aeropuerto['ubicacion']) ?></option>
-                            <?php }
-                            ?>
                         </select>
                     </div>
                     <div class="form-group item__data-flight">
-                        <label class="form-label" >Destino</label>
-                        <select class="" name="lugar_destino" id="lugar_destino" >
+                        <label class="form-label">Destino</label>
+                        <select class="form__reserve-input" name="lugar_destino" id="lugar_destino" style="padding: 12px;">
                             <option value="Destino" hidden disabled selected>Destino</option>
-                            <?php 
-                            foreach($aeropuertos as $aeropuerto){ ?>
-                                <option value="<?php echo $aeropuerto['id'] ?>"><?php echo utf8_encode($aeropuerto['ubicacion']) ?></option>
-                            <?php }
-                            ?>
                         </select>
                     </div>
 
                     <div class="form-group item__data-flight">
                         <label class="form-label" id="label-fecha_salida">Partida</label>
-                        <input type="date" name="fecha_salida" id="fecha_salida">
+                        <input type="date" class="form__reserve-input" name="fecha_salida" id="fecha_salida">
                     </div>
                     <div class="form-group item__data-flight">
-                        <label class="form-label" >Regreso</label>
-                        <input type="date" name="fecha_regreso" id="fecha_regreso">
-                    </div>
-
-                    <div class="form-group item__data-flight">
-                        <label class="form-label" >Pasajeros</label>
-                        <input type="number" name="cant_pasajes" id="" value="1" min="1" max="9">
+                        <label class="form-label">Regreso</label>
+                        <input type="date" class="form__reserve-input" name="fecha_regreso" id="fecha_regreso">
                     </div>
 
                     <div class="form-group item__data-flight">
-                        <label class="form-label" >Clase</label>
-                        <select name="clase" id="">
+                        <label class="form-label">Pasajeros</label>
+                        <input type="number" class="form__reserve-input" name="cant_pasajes" id="" value="1" min="1" max="9">
+                    </div>
+
+                    <div class="form-group item__data-flight">
+                        <label class="form-label">Clase</label>
+                        <select class="form__reserve-input" name="clase" id="">
                             <option value="economica" selected>Economica</option>
                             <option value="business">Business</option>
                             <option value="primera">Primera Clase</option>
@@ -105,6 +103,7 @@ itemVuelos.addEventListener('click', function(event) {
                 <div class="form-group container__submit-flight">
                     <button type="submit">Buscar vuelos</button>
                 </div>`)
+        loadAirports();
     }
 });
 
@@ -152,12 +151,16 @@ itemEstadoVuelo.addEventListener('click', function(event) {
 });
 
 
-// Checkbox de ida e ida y vuelta
+// Checkbox de ida e ida y vuelta. Lugar de origen y de destino
+var valueOrigenPrevio = 0;
+var valueDestinoPrevio = 0;
+
 document.getElementById('form__reserve').addEventListener('click', (event) => {
     const idaCheckbox = document.getElementById('checkbox_ida');
     const idaVueltaCheckbox = document.getElementById('checkbox_ida-vuelta');
 
-    if(event.target.id == "checkbox_ida"){
+    
+    if (event.target == idaCheckbox) {
         if (idaCheckbox.checked) {
             idaVueltaCheckbox.checked = false;
     
@@ -167,16 +170,38 @@ document.getElementById('form__reserve').addEventListener('click', (event) => {
         } else if (!idaCheckbox.checked) {
             idaCheckbox.checked = true
         }
-    } else if (event.target.id == "checkbox_ida-vuelta"){
+    } else if (event.target == idaVueltaCheckbox) {
         if (idaVueltaCheckbox.checked) {
             idaCheckbox.checked = false;
     
             $("#fecha_salida").parent().after(`<div class="form-group item__data-flight">
-                                                    <label class="form-label" >Regreso</label>
-                                                    <input type="date" name="fecha_regreso" id="fecha_regreso">
+                                                    <label class="form-label">Regreso</label>
+                                                    <input type="date" class="form__reserve-input" name="fecha_regreso" id="fecha_regreso">
                                                 </div>`);
         } else if (!idaVueltaCheckbox.checked) {
             idaVueltaCheckbox.checked = true
+        }
+    } else if (event.target.className.includes("select-airport")) {
+        const lugarOrigen = document.getElementById("lugar_origen");
+        const lugarDestino = document.getElementById("lugar_destino");
+
+        if (event.target.value != 0) {
+            
+            if (event.target == lugarOrigen) {
+                if (valueDestinoPrevio != 0) {
+                    $(lugarDestino.options[valueDestinoPrevio]).prop('disabled', false);
+                }
+                
+                $(lugarDestino.options[event.target.value]).prop('disabled', true);
+                valueDestinoPrevio = event.target.value;
+            } else if (event.target == lugarDestino) {
+                if (valueOrigenPrevio != 0) {
+                    $(lugarOrigen.options[valueOrigenPrevio]).prop('disabled', false);
+                }
+
+                $(lugarOrigen.options[event.target.value]).prop('disabled', true);
+                valueOrigenPrevio = event.target.value;
+            }
         }
     }
 })
