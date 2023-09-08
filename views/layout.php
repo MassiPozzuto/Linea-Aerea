@@ -19,7 +19,13 @@
   <script src="../js/jquery.min.js"></script>
   <!-- CSS -->
   <link href="../css/main.css" rel="stylesheet">
-  <link href="../css/<?php echo $section ?>.css" rel="stylesheet">
+  <?php if($section == "info"){ ?>
+     <link rel="stylesheet" href="../css/info.scss">
+  <?php }else{?>
+    <link href="../css/<?php echo $section ?>.css" rel="stylesheet">
+    <?php }?>
+
+  
 
   <!-- SELECT2 -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
