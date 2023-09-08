@@ -140,7 +140,7 @@ input[type=number] { -moz-appearance:textfield; }
 
 
 select {
-    max-width: 300px;
+    max-width: 200px;
 }
 
 .form__reserve-input {
@@ -149,4 +149,27 @@ select {
     font-size: 15px;
     padding: 12px;
     border-radius: 3px;
+}
+
+.fail .form__reserve-input{
+    border-color: red;
+}
+
+.errormessage__form {
+    color: red;
+    font-size: 13px;
+}
+
+@media (max-width: 1215px){
+    .container{
+        max-width: 100%;
+        padding: 0;
+    }
+}
+
+@media (max-width: 1025px){
+    .container__data-flight{
+        flex-direction: column;
+        align-items: start;
+    }
 }

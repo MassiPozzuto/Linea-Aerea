@@ -37,7 +37,7 @@
   if($section == "home"){
   ?>
     <div class="container__images-home">
-      <img src="../img/aeropuerto3.jpg" alt="">
+      <img src="../img/aeropuerto3_optimizado.jpg" alt="">
     </div>
   <?php 
   }?>
