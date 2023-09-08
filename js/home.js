@@ -1,12 +1,9 @@
 //$(document).ready(function () { });
 
-let params = new URLSearchParams(location.search);
-var activeTab = params.get('activeTab');
-window.addEventListener('popstate', (event) => { 
-    params = new URLSearchParams(location.search);
-    activeTab = params.get('activeTab');
-})
 
+var url = new URL(window.location);
+
+var activeTab = url.searchParams.get('activeTab');
 
 if (activeTab == 'flights') {
     loadAirports();
@@ -64,10 +61,10 @@ function disabledAirports() {
     lugarOrigen.addEventListener('change', (event) => {
         if (lugarOrigen.value != 0) {
             if (valueDestinoPrevio != 0) {
-                $(lugarDestino.options[valueDestinoPrevio]).prop('disabled', false);
+                $(`#aeropuerto_destino_${valueDestinoPrevio}`).prop('disabled', false);
             }
-
-            $(lugarDestino.options[lugarOrigen.value]).prop('disabled', true);
+            
+            $(`#aeropuerto_destino_${lugarOrigen.value}`).prop('disabled', true);
             valueDestinoPrevio = lugarOrigen.value;
         }
     })
@@ -75,13 +72,41 @@ function disabledAirports() {
     lugarDestino.addEventListener('change', (event) => {
         if (lugarDestino.value != 0) {
             if (valueOrigenPrevio != 0) {
-                $(lugarOrigen.options[valueOrigenPrevio]).prop('disabled', false);
+                $(`#aeropuerto_origen_${valueOrigenPrevio}`).prop('disabled', false);
             }
 
-            $(lugarOrigen.options[lugarDestino.value]).prop('disabled', true);
+            $(`#aeropuerto_origen_${lugarDestino.value}`).prop('disabled', true);
             valueOrigenPrevio = lugarDestino.value;
         }
     })
+}
+
+function loadAirports() {
+    $.ajax({
+        url: "../api/get_airports.php",
+        type: "POST",
+        dataType: "JSON",
+        success: function (data) {
+            //console.log(data);
+        
+            let aeropuertos = data.aeropuertos;
+            let code_html_origen = "";
+            let code_html_destino = "";
+            let i = 1;
+
+            aeropuertos.forEach((aeropuerto) => {
+                code_html_origen += `
+                    <option value="${aeropuerto.id}" id="aeropuerto_origen_${aeropuerto.id}">${aeropuerto.ubicacion}</option>`;
+
+                code_html_destino += `
+                    <option value="${aeropuerto.id}" id="aeropuerto_destino_${aeropuerto.id}">${aeropuerto.ubicacion}</option>`;
+                i++
+            });
+        
+            $("#lugar_origen").append(code_html_origen);
+            $("#lugar_destino").append(code_html_destino);
+        }
+    });
 }
 
 // Logica de fechas de salida y llegada
@@ -116,33 +141,6 @@ function minFechas() {
     })
 }
 
-function loadAirports() {
-    $.ajax({
-        url: "../api/get_airports.php",
-        type: "POST",
-        dataType: "JSON",
-        success: function (data) {
-            //console.log(data);
-        
-            let aeropuertos = data.aeropuertos;
-            let code_html_origen = "";
-            let code_html_destino = "";
-            let i = 1;
-
-            aeropuertos.forEach((aeropuerto) => {
-                code_html_origen += `
-                    <option value="${i}" id="aeropuerto_origen_${aeropuerto.id}">${aeropuerto.ubicacion}</option>`;
-
-                code_html_destino += `
-                    <option value="${i}" id="aeropuerto_destino_${aeropuerto.id}">${aeropuerto.ubicacion}</option>`;
-                i++
-            });
-        
-            $("#lugar_origen").append(code_html_origen);
-            $("#lugar_destino").append(code_html_destino);
-        }
-    });
-}
 
 
 
@@ -158,8 +156,9 @@ itemVuelos.addEventListener('click', function (event) {
         $(itemEstadoVuelo).removeClass("active")
         $(itemVuelos).addClass("active")
         
+        url.searchParams.set("activeTab", "flights")
         if(window.history.pushState)
-            window.history.pushState(null, null, "http://127.0.0.1/Linea-Aerea/controllers/home.php?activeTab=flights");
+            window.history.pushState(null, null, url.href);
 
         $("#form__reserve").empty()
 
@@ -238,8 +237,9 @@ itemCheckIn.addEventListener('click', function (event) {
         $(itemEstadoVuelo).removeClass("active")
         $(itemCheckIn).addClass("active")
 
+        url.searchParams.set("activeTab", "checkin")
         if(window.history.pushState)
-            window.history.pushState(null, null, "http://127.0.0.1/Linea-Aerea/controllers/home.php?activeTab=checkin");
+            window.history.pushState(null, null, url.href);
 
         $("#form__reserve").empty()
 
@@ -268,8 +268,9 @@ itemEstadoVuelo.addEventListener('click', function (event) {
         $(itemCheckIn).removeClass("active")
         $(itemEstadoVuelo).addClass("active")
 
+        url.searchParams.set("activeTab", "flightStatus")
         if(window.history.pushState)
-            window.history.pushState(null, null, "http://127.0.0.1/Linea-Aerea/controllers/home.php?activeTab=flightStatus");
+            window.history.pushState(null, null, url.href);
 
         $("#form__reserve").empty()
     }
@@ -367,30 +368,30 @@ document.getElementById("form__reserve").addEventListener("submit", (event) => {
             if (puntosValidacion == 9) {
                 console.log("Los datos ingresados son validos :)")
 
-                let datos = {
+                /*let datos = {
                     'lugarOrigen': lugarOrigen.options[lugarOrigen.value].id,
                     'lugarDestino': lugarDestino.options[lugarDestino.value].id,
                     'fechaSalida': fechaSalida.value,
                     'fechaRegreso' : fechaRegreso.value,
                     'cantPasajeros': cantPasajeros.value,
                     'clase': clase.value
-                };
-
-                submitForm(datos)
+                };*/
+                
+                event.target.submit();
             }
         } else if (idaCheckbox.checked) {
             if (puntosValidacion == 5) {
                 console.log("Los datos ingresados son validos :)")
 
-                let datos = {
+                /*let datos = {
                     'lugarOrigen': lugarOrigen.options[lugarOrigen.value].id,
                     'lugarDestino': lugarDestino.options[lugarDestino.value].id,
                     'fechaSalida': fechaSalida.value,
                     'cantPasajeros': cantPasajeros.value,
                     'clase': clase.value
-                };
+                };*/
 
-                submitForm(datos)
+                event.target.submit()
             }
         }
 
@@ -413,7 +414,7 @@ const correctaValidacion = (input) => {
     form.classList.add("success");
 };
 
-function submitForm(datos) {
+/*function submitForm(datos) {
     $.ajax({
         url: "../api/search_flights.php",
         type: "POST",
@@ -423,4 +424,125 @@ function submitForm(datos) {
             console.log(data)
         }
     });
-}
+}*/
+
+window.addEventListener("load", () => {
+    const coderes = document.getElementById("coderes");
+    const dni = document.getElementById("");
+    const form = document.getElementById("mulekeiro");
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        validaCampos();
+      });
+      const validaCampos = () => {
+        //caputrar los valores ingresados :)
+        const emailValue = email.value.trim();
+        const passwordValue = password.value.trim();
+        habilitar = 0;
+        //validar email
+        if (!emailValue) {
+          validafalla(email, "Por favor ingrese un numero");
+        } else {
+          validaOk(email);
+          habilitar++;
+        }
+        //validar password
+        if (!passwordValue) {
+          validafalla(, "Por favor ingrese un documento");
+        } else {
+          validaOk(password);
+        }
+    
+        if (habilitar > 0) {
+          const remember = $("#remember").is(":checked") ? 1 : 0;
+          login(emailValue, passwordValue, remember);
+          //document.getElementById("form").submit()
+        }
+      };
+      const validafalla = (input, msje) => {
+        const form = input.parentElement;
+        const warning = form.querySelector("p");
+        warning.innerText = msje;
+        form.classList = "form-group fail";
+      };
+      const validaOk = (input, msje) => {
+        const form = input.parentElement;
+        const warning = form.querySelector("p");
+        warning.innerText = null;
+        form.classList = "form-group success";
+      };
+    
+      function login(emailValue, passwordValue, remember) {
+        $.ajax({
+          url: "../api/users/login_validation.php",
+          type: "POST",
+          data: { email: emailValue, password: passwordValue, remember: remember },
+          dataType: "JSON",
+          success: function (data) {
+            console.log(data);
+            if (data.email != null) {
+              validafalla(email, data.email);
+            } else {
+              validaOk(email);
+            }
+            if (data.password != null) {
+              validafalla(password, data.password);
+            } else {
+              validaOk(password);
+            }
+    
+            if (data.message == "Se ha iniciado sesión correctamente") {
+              let timerInterval
+              Swal.fire({
+                html: 'Se ha iniciado sesión correctamente',
+                timer: 1200,
+                timerProgressBar: false,
+                position: 'bottom-start',
+                showConfirmButton: false,
+                width: 'auto',
+                padding: '2px',
+                grow: "row",
+                backdrop: true,
+                toast: true,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                stopKeydownPropagation: false,
+                background: '#fdb801',
+                color: '#ffffff',
+                willClose: () => {
+                  clearInterval(timerInterval)
+                }
+              }).then((result) => {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                  window.location.href = "../web/home.php";
+                }
+    
+              })
+            } else {
+              let timerInterval
+              Swal.fire({
+                html: (typeof data.account != 'undefined') ? data.account : 'Error al iniciar sesión. ',
+                timer: 1200,
+                timerProgressBar: false,
+                position: 'bottom-start',
+                showConfirmButton: false,
+                width: 'auto',
+                padding: '2px',
+                grow: "row",
+                backdrop: true,
+                toast: true,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                stopKeydownPropagation: false,
+                background: '#fdb801',
+                color: '#ffffff',
+                willClose: () => {
+                  clearInterval(timerInterval)
+                }
+              })
+            }
+          },
+        });
+      }
+    });

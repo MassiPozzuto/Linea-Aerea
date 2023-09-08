@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="author" content="Viex Inc.">
 
-  <link rel="icon" sizes="192x192" href="">
+  <link rel="icon" sizes="192x192" href="../img/racedo logo sin texto.png">
 
   <!-- FONTS -->
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
