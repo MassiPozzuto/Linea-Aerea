@@ -15,3 +15,7 @@ if(!empty($_POST)){
         //Mismo origen que destino
     }
 }
+
+$page = "Informacion";
+$section = "search_flights";
+require_once "../views/layout.php";

@@ -1,12 +1,9 @@
 //$(document).ready(function () { });
 
-let params = new URLSearchParams(location.search);
-var activeTab = params.get('activeTab');
-window.addEventListener('popstate', (event) => { 
-    params = new URLSearchParams(location.search);
-    activeTab = params.get('activeTab');
-})
 
+var url = new URL(window.location);
+
+var activeTab = url.searchParams.get('activeTab');
 
 if (activeTab == 'flights') {
     loadAirports();
@@ -158,8 +155,9 @@ itemVuelos.addEventListener('click', function (event) {
         $(itemEstadoVuelo).removeClass("active")
         $(itemVuelos).addClass("active")
         
+        url.searchParams.set("activeTab", "flights")
         if(window.history.pushState)
-            window.history.pushState(null, null, "http://127.0.0.1/Linea-Aerea/controllers/home.php?activeTab=flights");
+            window.history.pushState(null, null, url.href);
 
         $("#form__reserve").empty()
 
@@ -238,8 +236,9 @@ itemCheckIn.addEventListener('click', function (event) {
         $(itemEstadoVuelo).removeClass("active")
         $(itemCheckIn).addClass("active")
 
+        url.searchParams.set("activeTab", "checkin")
         if(window.history.pushState)
-            window.history.pushState(null, null, "http://127.0.0.1/Linea-Aerea/controllers/home.php?activeTab=checkin");
+            window.history.pushState(null, null, url.href);
 
         $("#form__reserve").empty()
 
@@ -268,8 +267,9 @@ itemEstadoVuelo.addEventListener('click', function (event) {
         $(itemCheckIn).removeClass("active")
         $(itemEstadoVuelo).addClass("active")
 
+        url.searchParams.set("activeTab", "flightStatus")
         if(window.history.pushState)
-            window.history.pushState(null, null, "http://127.0.0.1/Linea-Aerea/controllers/home.php?activeTab=flightStatus");
+            window.history.pushState(null, null, url.href);
 
         $("#form__reserve").empty()
     }
@@ -367,30 +367,30 @@ document.getElementById("form__reserve").addEventListener("submit", (event) => {
             if (puntosValidacion == 9) {
                 console.log("Los datos ingresados son validos :)")
 
-                let datos = {
+                /*let datos = {
                     'lugarOrigen': lugarOrigen.options[lugarOrigen.value].id,
                     'lugarDestino': lugarDestino.options[lugarDestino.value].id,
                     'fechaSalida': fechaSalida.value,
                     'fechaRegreso' : fechaRegreso.value,
                     'cantPasajeros': cantPasajeros.value,
                     'clase': clase.value
-                };
+                };*/
 
-                submitForm(datos)
+                event.target.submit()
             }
         } else if (idaCheckbox.checked) {
             if (puntosValidacion == 5) {
                 console.log("Los datos ingresados son validos :)")
 
-                let datos = {
+                /*let datos = {
                     'lugarOrigen': lugarOrigen.options[lugarOrigen.value].id,
                     'lugarDestino': lugarDestino.options[lugarDestino.value].id,
                     'fechaSalida': fechaSalida.value,
                     'cantPasajeros': cantPasajeros.value,
                     'clase': clase.value
-                };
+                };*/
 
-                submitForm(datos)
+                event.target.submit()
             }
         }
 
@@ -413,7 +413,7 @@ const correctaValidacion = (input) => {
     form.classList.add("success");
 };
 
-function submitForm(datos) {
+/*function submitForm(datos) {
     $.ajax({
         url: "../api/search_flights.php",
         type: "POST",
@@ -423,4 +423,4 @@ function submitForm(datos) {
             console.log(data)
         }
     });
-}
+}*/
