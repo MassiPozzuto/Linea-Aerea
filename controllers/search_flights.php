@@ -1,19 +1,19 @@
 <?php
 require_once "../includes/config.php";
 
-if(!empty($_POST)){
+if((isset($_POST["checkbox_ida"]) || isset($_POST["checkbox_ida-vuelta"])) && isset($_POST["lugar_origen"]) && isset($_POST["lugar_destino"]) && isset($_POST["fechaSalida"]) && isset($_POST["cant_pasajeros"]) && isset($_POST["clase"])){
     
-    $_POST['fechaSalida'] = date("Y-m-d", strtotime($_POST['fechaSalida']));
+    $tipoVuelo = (isset($_POST["checkbox_ida"])) ? $_POST["checkbox_ida"] : $_POST["checkbox_ida-vuelta"];
+    $lugarOrigen = $_POST["lugar_origen"];
+    $lugarDestino = $_POST["lugar_destino"];
+    $cantPasajes = $_POST["cant_pasajeros"];
+    $clase = $_POST["clase"];
+    $fechaSalida = date("Y-m-d", strtotime($_POST['fechaSalida']));
 
-    if($_POST['fechaRegreso'] != null){
-        $_POST['fechaRegreso'] = date("Y-m-d", strtotime($_POST['fechaRegreso']));
-    }
+    
 
-    if($_POST['lugarOrigen'] != $_POST['lugarDestino']){
-
-    } else {
-        //Mismo origen que destino
-    }
+} else {
+    //Algun dato no existe 
 }
 
 $page = "Informacion";

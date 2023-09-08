@@ -61,10 +61,10 @@ function disabledAirports() {
     lugarOrigen.addEventListener('change', (event) => {
         if (lugarOrigen.value != 0) {
             if (valueDestinoPrevio != 0) {
-                $(lugarDestino.options[valueDestinoPrevio]).prop('disabled', false);
+                $(`#aeropuerto_destino_${valueDestinoPrevio}`).prop('disabled', false);
             }
-
-            $(lugarDestino.options[lugarOrigen.value]).prop('disabled', true);
+            
+            $(`#aeropuerto_destino_${lugarOrigen.value}`).prop('disabled', true);
             valueDestinoPrevio = lugarOrigen.value;
         }
     })
@@ -72,13 +72,41 @@ function disabledAirports() {
     lugarDestino.addEventListener('change', (event) => {
         if (lugarDestino.value != 0) {
             if (valueOrigenPrevio != 0) {
-                $(lugarOrigen.options[valueOrigenPrevio]).prop('disabled', false);
+                $(`#aeropuerto_origen_${valueOrigenPrevio}`).prop('disabled', false);
             }
 
-            $(lugarOrigen.options[lugarDestino.value]).prop('disabled', true);
+            $(`#aeropuerto_origen_${lugarDestino.value}`).prop('disabled', true);
             valueOrigenPrevio = lugarDestino.value;
         }
     })
+}
+
+function loadAirports() {
+    $.ajax({
+        url: "../api/get_airports.php",
+        type: "POST",
+        dataType: "JSON",
+        success: function (data) {
+            //console.log(data);
+        
+            let aeropuertos = data.aeropuertos;
+            let code_html_origen = "";
+            let code_html_destino = "";
+            let i = 1;
+
+            aeropuertos.forEach((aeropuerto) => {
+                code_html_origen += `
+                    <option value="${aeropuerto.id}" id="aeropuerto_origen_${aeropuerto.id}">${aeropuerto.ubicacion}</option>`;
+
+                code_html_destino += `
+                    <option value="${aeropuerto.id}" id="aeropuerto_destino_${aeropuerto.id}">${aeropuerto.ubicacion}</option>`;
+                i++
+            });
+        
+            $("#lugar_origen").append(code_html_origen);
+            $("#lugar_destino").append(code_html_destino);
+        }
+    });
 }
 
 // Logica de fechas de salida y llegada
@@ -113,33 +141,6 @@ function minFechas() {
     })
 }
 
-function loadAirports() {
-    $.ajax({
-        url: "../api/get_airports.php",
-        type: "POST",
-        dataType: "JSON",
-        success: function (data) {
-            //console.log(data);
-        
-            let aeropuertos = data.aeropuertos;
-            let code_html_origen = "";
-            let code_html_destino = "";
-            let i = 1;
-
-            aeropuertos.forEach((aeropuerto) => {
-                code_html_origen += `
-                    <option value="${i}" id="aeropuerto_origen_${aeropuerto.id}">${aeropuerto.ubicacion}</option>`;
-
-                code_html_destino += `
-                    <option value="${i}" id="aeropuerto_destino_${aeropuerto.id}">${aeropuerto.ubicacion}</option>`;
-                i++
-            });
-        
-            $("#lugar_origen").append(code_html_origen);
-            $("#lugar_destino").append(code_html_destino);
-        }
-    });
-}
 
 
 
@@ -375,8 +376,8 @@ document.getElementById("form__reserve").addEventListener("submit", (event) => {
                     'cantPasajeros': cantPasajeros.value,
                     'clase': clase.value
                 };*/
-
-                event.target.submit()
+                
+                event.target.submit();
             }
         } else if (idaCheckbox.checked) {
             if (puntosValidacion == 5) {

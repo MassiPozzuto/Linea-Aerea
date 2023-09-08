@@ -6,17 +6,17 @@
     </ul>
 
     <div class="container__forms">
-        <form action="" method="POST" id="form__reserve">
+        <form action="search_flights.php" method="POST" id="form__reserve">
             <?php
             if ($_GET["activeTab"] == "flights") { ?>
                 <div class="container__type-flight">
                     <div class="form-group container__checkbox-ida">
-                        <input type="checkbox" name="checkbox_ida" id="checkbox_ida">
+                        <input type="checkbox" name="checkbox_ida" id="checkbox_ida" value="ida">
                         <span>Ida</span>
                         <p class="errormessage__form" style="display: none;"></p>
                     </div>
                     <div class="form-group container__checkbox-ida-vuelta">
-                        <input type="checkbox" name="checkbox_ida-vuelta" id="checkbox_ida-vuelta" checked>
+                        <input type="checkbox" name="checkbox_ida-vuelta" id="checkbox_ida-vuelta" value="ida-vuelta" checked>
                         <span>Ida y vuelta</span>
                         <p class="errormessage__form" style="display: none;"></p>
                     </div>
