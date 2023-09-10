@@ -2,9 +2,9 @@
     
     <button class="btn list_menu"><i class="bi bi-list" id="icon-list"></i></button>
     
-    <div class="container__logo">
+    <a href="../controllers/home.php" class="container__logo">
         <img src="../img/racedo logo.png" alt="Logo empresa" width="85px">
-    </div>
+    </a>
 
     <ul class="container__list-buttons">
         <li class="container__btn-home">

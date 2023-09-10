@@ -2,7 +2,7 @@
 <html lang="es" data-theme="light">
 
 <head>
-  <title><?php echo $page; ?> • Racedo Airways</title>
+  <title><?php echo $page; ?> - Racedo Airways</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="author" content="Viex Inc.">

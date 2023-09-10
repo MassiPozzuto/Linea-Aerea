@@ -6,7 +6,7 @@
     </ul>
 
     <div class="container__forms">
-        <form action="search_flights.php" method="POST" id="form__reserve">
+        <form action="" method="POST" id="form__reserve">
             <?php
             if ($_GET["activeTab"] == "flights") { ?>
                 <div class="container__type-flight">
@@ -73,7 +73,6 @@
             <?php
             } else if ($_GET["activeTab"] == "checkin") { ?>
                 <div class="container__data-flight">
-                <form action="POST" class="" id="mulekeiro"></form>
                     <div class="form-group item__data-flight">
                         <label class="form-label">Código de reserva</label>
                         <input type="text" name="" id="rescode" placeholder="Código de reserva">
