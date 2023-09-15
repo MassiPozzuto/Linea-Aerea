@@ -1,6 +1,6 @@
 <div class="wrap" data-pos="0">
 		<div class="headbar">
-			<i class="zmdi zmdi-arrow-left btnBack"></i> <span>Flight Booking App</span>
+			<i class="zmdi zmdi-arrow-left btnBack"></i> <span>Check in</span>
 		</div>
 		<div class="header">
 			<div class="bg"></div>
@@ -25,7 +25,7 @@
 							<i class="zmdi zmdi-flight-takeoff"></i>
 							<span class="close"><i class="zmdi zmdi-close"></i></span>
 							<div>
-								<h6>From</h6>
+								<h6>Desde</h6>
 								<span class="airport-name" data-role="from">DUB, Dublin Airport</span>
 							</div>			
 						</div>
@@ -43,7 +43,7 @@
 							<i class="zmdi zmdi-flight-land"></i>
 							<span class="close"><i class="zmdi zmdi-close"></i></span>
 							<div>
-								<h6>To</h6>
+								<h6>A aeropuerto</h6>
 								<span class="airport-name" data-role="to">MRS, Marseille Provence Airport</span>
 							</div>			
 						</div>
@@ -61,11 +61,11 @@
 							<i class="zmdi zmdi-calendar"></i>
 							<span class="close"><i class="zmdi zmdi-close"></i></span>
 							<div class="control-item">
-								<h6>Depar</h6>
+								<h6>Fecha de salida</h6>
 								<span>MON, 8 May</span>
 							</div>
 							<div class="control-item">
-								<h6>Return</h6>
+								<h6>Fecha de llegada</h6>
 								<span>One Way</span> <!--Quitar si no se selecciona-->
 							</div>
 						</div>
@@ -75,40 +75,30 @@
 								<!-- <span>Select the depar date then the return date if you need a round trip ticket</span> -->
 								<span>By the moment theres only One Way tickets, thanks.</span>
 							</div>
-							<div class="calendar">
-								<div class="month">
-									<i class="zmdi zmdi-chevron-left"></i>
-									<span>May</span>
-									<i class="zmdi zmdi-chevron-right"></i>
-								</div>
-								<div class="week">
-									<span>S</span>
-									<span>M</span>
-									<span>T</span>
-									<span>W</span>
-									<span>T</span>
-									<span>F</span>
-									<span>S</span>
-								</div>
-								<div class="days"></div>
-							</div>
+							
 						</div>
 					</div>
 				
 					<div class="control radio">
 						<i class="zmdi zmdi-airline-seat-recline-extra"></i>
 						<div class="control-item">
-							<h6 style="margin-bottom: 8px">Class</h6>
+							<h6 style="margin-bottom: 8px">Clase</h6>
 							<label>
 								<input type="radio" name="seat" value="Economy" checked="checked">
-								<span>Economy</span>
+								<span>Economica</span>
 							</label>
 						</div>
 					</div>
-					<div class="control">
-						Nombre
+				<div class="control control2">
+						Nombre: <h6>Lancelot Gomez</h6>
+					</div>	
+					<div class="control control2">
+						
+						Codigo:<h2 class="embarco">12AB34</h2>
 					</div>
-
+					<div class="control control2">
+						Puerta de embarco: <h2 class="embarco">A2</h2>
+					</div>
 				</div>
 				<div class="list">
 					<div class="nano">

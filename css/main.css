@@ -314,7 +314,7 @@ header {
   .wrap[data-pos="0"] .header { height: 140px }
   
   .wrap[data-pos="0"] .content {
-    height: calc(100% - 200px);
+    height: 100%;
     transition: all 0.8s ease;
   }
   
@@ -340,7 +340,7 @@ header {
   .control {
     position: relative;
     top: 0;
-    height: 60px;
+    height: 85px;
     display: flex;
     align-items: center;
     padding: 5px;
@@ -350,11 +350,7 @@ header {
     transition: all .4s ease;
   }
   
-  .control:last-child {
-    height: 55px;
-    border-bottom: none;
-    padding: 0;
-  }
+
   
   /*Preview hack*/
   .control-head > * { float: left; }
@@ -373,7 +369,6 @@ header {
   .control h6 { 
     margin: 5px 0;
     font-weight: 400;
-    color: #bbb;
   }
   
   .control.open:nth-child(2) { top: -72px; }
@@ -382,6 +377,10 @@ header {
   .control.open {
     height: 100%;
     transition: all .4s ease;
+  }
+
+  .embarco{
+    padding-left: 40px;
   }
   
   .control .control-head { 
@@ -832,3 +831,8 @@ header {
   }
 
 /**** HEADER ******/
+
+.control2{
+  padding-left: 45px;
+  width: 101%;
+}
