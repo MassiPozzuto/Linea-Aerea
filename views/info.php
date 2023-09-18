@@ -17,13 +17,15 @@
                 <div class="box1 box">
                     <div class="bg"></div>
                     <div class="details">
-                        <h1>I'm the first Box</h1>
+                    <img src="../img/Embraer.png">
+                        <h1>Embraer E190</h1>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing 
-                            elit. Integer lacinia dui lectus. Donec scelerisque ipsum
-                            diam, ac mattis orci pellentesque eget. 
+                        Asientos: 8 Premium Economy | 88 Económica<br>
+                        Largo: 36,24 m<br>
+                        Envergadura: 28,72 m<br>
+                        Alcance: 4.448 km<br>
+                        Cantidad: 26<br>
                         </p>
-                        <button>Check Now</button>
                     </div>
 
                     <div class="illustration"><div class="inner"></div></div>
@@ -33,13 +35,16 @@
                 <div class="box2 box">
                     <div class="bg"></div>
                     <div class="details">
-                        <h1>I'm the second Box</h1>
+                    <img src="../img/Boeing700-800.png">
+                        <h1>Boeing 737-700 / Boeing 737-800</h1>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing 
-                            elit. Integer lacinia dui lectus. Donec scelerisque ipsum
-                            diam, ac mattis orci pellentesque eget. 
+                        Asientos: 8 Premium Economy | 120 Económica - 8 Premium Economy | 162 Económica<br>
+                        Largo: 36,6 m l 39,5 m <br>
+                        Envergadura: 35,8 m l 35,8 m<br>
+                        Alcance: 6.370 km l  5.765 km.<br>
+                        Cantidad: 8 / 31<br>
                         </p>
-                        <button>Check Now</button>
+                        
                     </div>
 
                     <div class="illustration"><div class="inner"></div></div>
@@ -48,13 +53,15 @@
                 <div class="box3 box">
                     <div class="bg"></div>
                     <div class="details">
-                        <h1>I'm the third Box</h1>
+                    <img src="../img/Airbus.png">
+                        <h1>Airbus 330-200</h1>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing 
-                            elit. Integer lacinia dui lectus. Donec scelerisque ipsum
-                            diam, ac mattis orci pellentesque eget. 
+                        Asientos: 24 Business | 248 Económica<br>
+                        Largo: 58,82 m<br>
+                        Envergadura: 60,3 m<br>
+                        Alcance: 13.400 km<br>
+                        Cantidad: 10<br>
                         </p>
-                        <button>Check Now</button>
                     </div>
 
                     <div class="illustration"><div class="inner"></div></div>
@@ -63,28 +70,16 @@
                 <div class="box4 box">
                     <div class="bg"></div>
                     <div class="details">
-                        <h1>I'm the fourth Box</h1>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing 
-                            elit. Integer lacinia dui lectus. Donec scelerisque ipsum
-                            diam, ac mattis orci pellentesque eget. 
-                        </p>
-                        <button>Check Now</button>
-                    </div>
+                    <img src="../img/Boeing737.png">
 
-                    <div class="illustration"><div class="inner"></div></div>
-                </div>
-                                
-                <div class="box5 box">
-                    <div class="bg"></div>
-                    <div class="details">
-                        <h1>I'm the fifth Box</h1>
+                        <h1> Boeing 737 Max 8</h1>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing 
-                            elit. Integer lacinia dui lectus. Donec scelerisque ipsum
-                            diam, ac mattis orci pellentesque eget. 
+                        Asientos: 8 Premium Economy | 162 Económica<br>
+                        Largo: 39,5 m<br>
+                        Envergadura: 35,9 m<br>
+                        Alcance: 6.500 km<br>
+                        Cantidad: 5<br>
                         </p>
-                        <button>Check Now</button>
                     </div>
 
                     <div class="illustration"><div class="inner"></div></div>
