@@ -252,21 +252,23 @@ itemCheckIn.addEventListener('click', function (event) {
         $("#form__reserve").empty()
 
         $("#form__reserve").append(
-                `<div class="container__data-flight">
+                `            <form method="POST" action="checkin.php">
+                <div class="container__data-flight">
                     <div class="form-group item__data-flight">
-                        <label class="form-label" >Código de reserva</label>
-                        <input type="text" name="" id="">
+                        <label class="form-label">Código de reserva</label>
+                        <input type="text" name="vueloid" id="rescode" placeholder="Código de reserva">
                     </div>
 
                     <div class="form-group item__data-flight">
-                        <label class="form-label" >Pasajero/a</label>
-                        <input type="text" name="cant_pasajes" id="" value="1" min="1" max="9">
+                        <label class="form-label">Numero de documento</label>
+                        <input type="text"  name="dni" id="dni" placeholder="Documento">
                     </div>
                 </div>
 
                 <div class="form-group container__submit-flight">
-                    <button type="submit">Comenzar Check-In</button>
-                </div>`)
+                    <button type="submit" id="checkinbutton">Comenzar Check-In</button>
+                </div>
+                </form>`)
     }
 });
 itemEstadoVuelo.addEventListener('click', function (event) {
@@ -408,6 +410,7 @@ document.getElementById("form__reserve").addEventListener("submit", (event) => {
 
     } else if (activeTab == 'checkin'){
         event.target.setAttribute('action', 'checkin.php')
+        event.target.submit()
     } else if (activeTab == 'flightStatus') {
         event.target.setAttribute('action', 'flightStatus.php')
     }
