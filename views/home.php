@@ -72,21 +72,23 @@
 
             <?php
             } else if ($_GET["activeTab"] == "checkin") { ?>
+            <form method="POST" action="checkin.php">
                 <div class="container__data-flight">
                     <div class="form-group item__data-flight">
                         <label class="form-label">Código de reserva</label>
-                        <input type="text" name="" id="rescode" placeholder="Código de reserva">
+                        <input type="text" name="vueloid" id="rescode" placeholder="Código de reserva">
                     </div>
 
                     <div class="form-group item__data-flight">
                         <label class="form-label">Numero de documento</label>
-                        <input type="text"  name="" id="dni" placeholder="Documento">
+                        <input type="text"  name="dni" id="dni" placeholder="Documento">
                     </div>
                 </div>
 
                 <div class="form-group container__submit-flight">
                     <button type="submit" id="checkinbutton">Comenzar Check-In</button>
                 </div>
+                </form>
             <?php
             } else if ($_GET["activeTab"] == "flightStatus") { ?>
 

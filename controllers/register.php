@@ -1,6 +1,6 @@
 <?php
 
-  require '..includes/config.php';
+  require '../includes/config.php';
 
   $message = '';
   $date = date('m/d/Y h:i:s a', time());
