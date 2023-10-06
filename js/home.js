@@ -3,6 +3,14 @@
 
 var url = new URL(window.location);
 var activeTab = url.searchParams.get('activeTab');
+
+if(activeTab == null){
+    url.searchParams.set("activeTab", "flights")
+        if(window.history.pushState)
+            window.history.pushState(null, null, url.href);
+    activeTab = "flights"
+}
+
 if (activeTab == 'flights') {
     loadAirports();
     disabledAirports();
