@@ -61,7 +61,15 @@ try {
 		$destino = $rowVuelo['id_aero_destino'];
 		// Resto del código...
 	} else {
-		echo "No se encontraron registros de vuelos.";
+
+		echo "<script>
+		alert('Check-in no encontrado');
+		window.location.replace(
+			'http://localhost/Linea-Aerea/controllers/home.php?activeTab=checkin',
+		  );
+		</script>";
+
+		
 	}
 } catch (Exception $e) {
 	die("Error en la consulta de vuelo: " . $e->getMessage());
