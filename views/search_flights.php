@@ -1,73 +1,63 @@
 
-<div class="submenu__flights" id="submenu__flights">
-    <div class="submenu__flights-info">
-        <div class="mini-container__cuas submenu__flights-item">
-            <i class="bi bi-airplane-fill"></i> 
-            <span><?php echo $CUAs[0]; ?> - <?php echo $CUAs[1]; ?></span>
-        </div>
-        <div class="mini-container__dates ">
-            <div class="submenu__flights-item">
-                <i class="bi bi-calendar"></i> 
-                <span><?php echo reformatearFecha($rangoFechaSalida[0]) ?></span>
-            </div>
-            
-            <?php 
-            if(isset($rangoFechaRegreso[0])) {
-            ?>
-                <div class="submenu__flights-item">
-                    <i class="bi bi-calendar"></i> 
-                    <span><?php echo reformatearFecha($rangoFechaRegreso[0]) ?></span>
-                </div>
-            <?php 
-            }
-            ?>
-        </div>
-        <div class="mini-container__more submenu__flights-item">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-standing" viewBox="0 0 16 16">
-                <path d="M8 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM6 6.75v8.5a.75.75 0 0 0 1.5 0V10.5a.5.5 0 0 1 1 0v4.75a.75.75 0 0 0 1.5 0v-8.5a.25.25 0 1 1 .5 0v2.5a.75.75 0 0 0 1.5 0V6.5a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v2.75a.75.75 0 0 0 1.5 0v-2.5a.25.25 0 0 1 .5 0Z"/>
-            </svg> 
-            <span><?php echo ($cantPasajes > 1) ? $cantPasajes . " Pasajes" : $cantPasajes . " Pasaje"; ?>, <?php echo ucfirst($clase); ?></span>
-        </div>
+<div class="calendar">
+    <div class="calendar__title">
+        <h3>Noviembre de 2023</h3>
     </div>
-
-    <button type="button" class="submenu__flights-btn"><i class="bi bi-caret-down"></i> <span>Editar búsqueda</span></button>
-
+    <div class="calendar__header">
+        <div>lun</div>
+        <div>mar</div>
+        <div>mié</div>
+        <div>jue</div>
+        <div>vie</div>
+        <div>sáb</div>
+        <div>dom</div>
+    </div>
+    <div class="calendar__week">
+        <div class="calendar__day day month-before">29</div>
+        <div class="calendar__day day month-before">30</div>
+        <div class="calendar__day day month-before">31</div>
+        <div class="calendar__day day">1</div>
+        <div class="calendar__day day">2</div>
+        <div class="calendar__day day">3</div>
+        <div class="calendar__day day">4</div>
+    </div>
+    <div class="calendar__week">
+        <div class="calendar__day day">5</div>
+        <div class="calendar__day day">6</div>
+        <div class="calendar__day day">7</div>
+        <div class="calendar__day day">8</div>
+        <div class="calendar__day day">9</div>
+        <div class="calendar__day day">10</div>
+        <div class="calendar__day day">11</div>        
+    </div>
+    <div class="calendar__week">
+        <div class="calendar__day day">12</div>
+        <div class="calendar__day day">13</div>
+        <div class="calendar__day day">14</div>
+        <div class="calendar__day day">15</div>
+        <div class="calendar__day day">16</div>
+        <div class="calendar__day day">17</div>
+        <div class="calendar__day day">18</div>    
+    </div>
+    <div class="calendar__week">
+        <div class="calendar__day day">19</div>
+        <div class="calendar__day day">20</div>
+        <div class="calendar__day day">21</div>
+        <div class="calendar__day day">22</div>
+        <div class="calendar__day day">23</div> 
+        <div class="calendar__day day">24</div> 
+        <div class="calendar__day day">25</div> 
+    </div>
+    <div class="calendar__week">
+        <div class="calendar__day day">26</div>
+        <div class="calendar__day day">27</div>
+        <div class="calendar__day day">28</div>
+        <div class="calendar__day day">30</div>
+        <div class="calendar__day day month-after">1</div>
+        <div class="calendar__day day month-after">2</div>
+        <div class="calendar__day day month-after">3</div>
+    </div>
 </div>
-<!--
-<div class="submenu__flights">
-
-    <div class="submenu__flights-info">
-        <div class="mini-container__cuas submenu__flights-item">
-            <i class="bi bi-airplane-fill"></i> 
-            <span><?php echo $CUAs[0]; ?> - <?php echo $CUAs[1]; ?></span>
-        </div>
-    </div>
-
-    <div class="submenu__flights-info">
-        <div class="mini-container__dates ">
-            <div class="submenu__flights-item item-more">
-                <i class="bi bi-calendar"></i> 
-                <span><?php echo date("d/m", strtotime($rangoFechaSalida[0])) ?></span>
-            </div>
-            <div class="submenu__flights-item item-more">
-                <i class="bi bi-calendar"></i> 
-                <span><?php echo date("d/m", strtotime($rangoFechaRegreso[0])) ?></span>
-            </div>
-        </div>
-        <div class="mini-container__more submenu__flights-item item-more">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-standing" viewBox="0 0 16 16">
-                <path d="M8 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM6 6.75v8.5a.75.75 0 0 0 1.5 0V10.5a.5.5 0 0 1 1 0v4.75a.75.75 0 0 0 1.5 0v-8.5a.25.25 0 1 1 .5 0v2.5a.75.75 0 0 0 1.5 0V6.5a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v2.75a.75.75 0 0 0 1.5 0v-2.5a.25.25 0 0 1 .5 0Z"/>
-            </svg> 
-            <span><?php echo $cantPasajes ?></span>
-        </div>
-    </div>
-
-    <div class="submenu__flights-info">
-        <button type="button" class="submenu__flights-btn"><i class="bi bi-caret-down"></i> <span></span></button>
-    </div>
-
-</div>-->
-
 
 <script src="../js/main.js" type="text/javascript"></script>
 <script src="../js/search_flights.js" type="text/javascript"></script>

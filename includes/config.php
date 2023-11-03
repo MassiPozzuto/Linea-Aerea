@@ -5,7 +5,7 @@ define('RUTA', '/Linea-Aerea');
 define('CANT_REG_PAG', 30);
 
 $connectionInfo = array( "Database" => "aerolinea", "UID"=>"sa", "PWD"=>"123");
-$conn = sqlsrv_connect( "PC-F-019\SQLEXPRESS", $connectionInfo);
+$conn = sqlsrv_connect( "DESKTOP-QB22C4J\SQLEXPRESS", $connectionInfo);
 
 if (!$conn) {
   echo "Conexión no se pudo establecer.<br />";
