@@ -26,5 +26,3 @@ if (!empty($_POST)) {
 $page = "Inicio";
 $section = "home";
 require_once "../views/access/layout.php";
-
-?>
