@@ -46,21 +46,19 @@ if((isset($_POST["checkbox_ida"]) || isset($_POST["checkbox_ida-vuelta"])) && is
         $i++;
     }
     //Cambio el formato de fechas porque SQLSERVER es la pija mas grande que existe en la historia
-    $rangoFechaSalida[1] = date("Y-d-m", strtotime($rangoFechaSalida[1]));
-    $rangoFechaSalida[2] = date("Y-d-m", strtotime($rangoFechaSalida[2]));
-    $sqlVuelosIda = "SELECT v.id, v.fecha_partida, v.fecha_arribo, v.escalas, a.ubicacion AS ubi_arpto_ori, a2.ubicacion AS ubi_arpto_dest, a.nombre AS nom_arpto_ori, 
+    $rangoFechaSalida[1] = date("Y-m-d", strtotime($rangoFechaSalida[1]));
+    $rangoFechaSalida[2] = date("Y-m-d", strtotime($rangoFechaSalida[2]));
+    $sqlVuelosIda = "SELECT v.id, v.fecha_partida, v.fecha_arribo, v.escalas, v.precio_base,a.ubicacion AS ubi_arpto_ori, a2.ubicacion AS ubi_arpto_dest, a.nombre AS nom_arpto_ori, 
                         a2.nombre AS nom_arpto_dest FROM Vuelos v
                     INNER JOIN Aeropuertos a ON v.id_aero_origen = a.id
                     INNER JOIN Aeropuertos a2 ON v.id_aero_destino = a2.id
                     WHERE id_aero_origen = $lugarOrigen AND id_aero_destino = $lugarDestino AND fecha_partida BETWEEN '" . $rangoFechaSalida[1] . "' AND '" . $rangoFechaSalida[2] . "'";
     $resultVuelosIda = sqlsrv_query($conn, $sqlVuelosIda);
-    $arrayIdsVuelosIda = array();
+    $arrayVuelosIda = array();
     while ($row = sqlsrv_fetch_array($resultVuelosIda, SQLSRV_FETCH_ASSOC)) {
         // Obtén una cadena formateada de la fecha (por ejemplo, 'Y-m-d')
-        $cadenaFecha = $row['fecha_partida']->format('Y-m-d');
-        $prueba = explode(' ', $cadenaFecha);
-        $prueba2 = explode('-', $prueba[0]);
-        $arrayIdsVuelosIda[] = $prueba2[2];
+        $cadenaFecha = explode(' ', $row['fecha_partida']->format('Y-m-d'));
+        $arrayVuelosIda[] = explode('-', $cadenaFecha[0])[2];
     }
 
     if ($tipoVuelo == "ida-vuelta") {
@@ -80,10 +78,8 @@ if((isset($_POST["checkbox_ida"]) || isset($_POST["checkbox_ida-vuelta"])) && is
             $arrayIdsVuelosVuelta = array();
             while ($row = sqlsrv_fetch_array($resultVuelosVuelta, SQLSRV_FETCH_ASSOC)) {
                 // Obtén una cadena formateada de la fecha (por ejemplo, 'Y-m-d')
-                $cadenaFecha = $row['fecha_partida']->format('Y-m-d');
-                $prueba = explode(' ', $cadenaFecha);
-                $prueba2 = explode('-', $prueba[0]);
-                $arrayIdsVuelosVuelta[] = $prueba2[2];
+                $cadenaFecha = explode(' ', $row['fecha_partida']->format('Y-m-d'));
+                $arrayIdsVuelosIda[] = explode('-', $cadenaFecha[0])[2];
             }
         }
     }
@@ -92,7 +88,7 @@ if((isset($_POST["checkbox_ida"]) || isset($_POST["checkbox_ida-vuelta"])) && is
     //Algun dato no existe 
 }
 
-function crearCalendario($fecha, $fechasSeleccionables = [])
+function crearCalendario($fecha, $fechasSeleccionables = [], $dataVuelos)
 {
     // Verifica que la fecha tenga el formato correcto (DD/MM/YYYY)
     $fechaObj = DateTime::createFromFormat('d/m/Y', $fecha);
@@ -154,6 +150,62 @@ function crearCalendario($fecha, $fechasSeleccionables = [])
         }
     }
 
+}
+
+function formatearFecha($fecha){
+    $fecha = date("Y-m-d", strtotime($fecha)); // Aseguramos que la fecha esté en formato "Y-m-d"
+
+    // Array de nombres de meses en español
+    $meses = array(
+        1 => "enero",
+        2 => "febrero",
+        3 => "marzo",
+        4 => "abril",
+        5 => "mayo",
+        6 => "junio",
+        7 => "julio",
+        8 => "agosto",
+        9 => "septiembre",
+        10 => "octubre",
+        11 => "noviembre",
+        12 => "diciembre"
+    );
+
+    // Dividimos la fecha en año, mes y día
+    list($anio, $mes, $dia) = explode("-", $fecha);
+
+    // Obtenemos el nombre del mes en español
+    $mesTexto = $meses[intval($mes)];
+
+    return "$dia de $mesTexto de $anio";
+}
+
+function formatearFecha2($fecha){
+    $fecha = date("Y-m-d", strtotime($fecha)); // Aseguramos que la fecha esté en formato "Y-m-d"
+
+    // Array de nombres de meses en español
+    $meses = array(
+        1 => "enero",
+        2 => "febrero",
+        3 => "marzo",
+        4 => "abril",
+        5 => "mayo",
+        6 => "junio",
+        7 => "julio",
+        8 => "agosto",
+        9 => "septiembre",
+        10 => "octubre",
+        11 => "noviembre",
+        12 => "diciembre"
+    );
+
+    // Dividimos la fecha en año, mes y día
+    $fechaSeparada = explode("-", $fecha);
+
+    // Obtenemos el nombre del mes en español
+    $mesTexto = $meses[intval($fechaSeparada[1])];
+
+    return "$mesTexto " . $fechaSeparada[0] ;
 }
 
 
