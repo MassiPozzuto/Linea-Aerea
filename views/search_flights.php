@@ -1,73 +1,68 @@
-
-<div class="submenu__flights" id="submenu__flights">
-    <div class="submenu__flights-info">
-        <div class="mini-container__cuas submenu__flights-item">
-            <i class="bi bi-airplane-fill"></i> 
-            <span><?php echo $CUAs[0]; ?> - <?php echo $CUAs[1]; ?></span>
-        </div>
-        <div class="mini-container__dates ">
-            <div class="submenu__flights-item">
-                <i class="bi bi-calendar"></i> 
-                <span><?php echo reformatearFecha($rangoFechaSalida[0]) ?></span>
-            </div>
-            
-            <?php 
-            if(isset($rangoFechaRegreso[0])) {
-            ?>
-                <div class="submenu__flights-item">
-                    <i class="bi bi-calendar"></i> 
-                    <span><?php echo reformatearFecha($rangoFechaRegreso[0]) ?></span>
-                </div>
-            <?php 
-            }
-            ?>
-        </div>
-        <div class="mini-container__more submenu__flights-item">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-standing" viewBox="0 0 16 16">
-                <path d="M8 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM6 6.75v8.5a.75.75 0 0 0 1.5 0V10.5a.5.5 0 0 1 1 0v4.75a.75.75 0 0 0 1.5 0v-8.5a.25.25 0 1 1 .5 0v2.5a.75.75 0 0 0 1.5 0V6.5a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v2.75a.75.75 0 0 0 1.5 0v-2.5a.25.25 0 0 1 .5 0Z"/>
-            </svg> 
-            <span><?php echo ($cantPasajes > 1) ? $cantPasajes . " Pasajes" : $cantPasajes . " Pasaje"; ?>, <?php echo ucfirst($clase); ?></span>
-        </div>
+<!-- IDA -->
+<div class="section__calendar" id="calendar_ida" calendar-date="11/2023">
+    <div class="container__data-calendar">
+        <span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plane-departure" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M14.639 10.258l4.83 -1.294a2 2 0 1 1 1.035 3.863l-14.489 3.883l-4.45 -5.02l2.897 -.776l2.45 1.414l2.897 -.776l-3.743 -6.244l2.898 -.777l5.675 5.727z"></path>
+                <path d="M3 21h18"></path>
+            </svg>
+        </span>
+        <span class="data__calendar-title">IDA</span>
+        <span>4 de noviembre de 2023</span>
     </div>
 
-    <button type="button" class="submenu__flights-btn"><i class="bi bi-caret-down"></i> <span>Editar búsqueda</span></button>
-
+    <div class="calendar">
+        <div class="calendar__title">
+            <p>Noviembre 2023</p>
+        </div>
+        <div class="calendar__days-name">
+            <div>lun</div>
+            <div>mar</div>
+            <div>mié</div>
+            <div>jue</div>
+            <div>vie</div>
+            <div>sáb</div>
+            <div>dom</div>
+        </div>
+        <ol class="calendar__days" id="calendar__days-ida">
+            <?php crearCalendario(date("d/m/Y", strtotime($_POST['fecha_salida'])), $arrayIdsVuelosIda) ?>
+        </ol>
+    </div>
 </div>
-<!--
-<div class="submenu__flights">
 
-    <div class="submenu__flights-info">
-        <div class="mini-container__cuas submenu__flights-item">
-            <i class="bi bi-airplane-fill"></i> 
-            <span><?php echo $CUAs[0]; ?> - <?php echo $CUAs[1]; ?></span>
-        </div>
+<!-- VUELTA -->
+<div class="section__calendar" id="calendar_vuelta" calendar-date="02/2024">
+    <div class="container__data-calendar">
+        <span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plane-arrival" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M15.157 11.81l4.83 1.295a2 2 0 1 1 -1.036 3.863l-14.489 -3.882l-1.345 -6.572l2.898 .776l1.414 2.45l2.898 .776l-.12 -7.279l2.898 .777l2.052 7.797z"></path>
+                <path d="M3 21h18"></path>
+            </svg>
+        </span>
+        <span class="data__calendar-title">VUELTA</span>
+        <span>2 de febrero de 2024</span>
     </div>
 
-    <div class="submenu__flights-info">
-        <div class="mini-container__dates ">
-            <div class="submenu__flights-item item-more">
-                <i class="bi bi-calendar"></i> 
-                <span><?php echo date("d/m", strtotime($rangoFechaSalida[0])) ?></span>
-            </div>
-            <div class="submenu__flights-item item-more">
-                <i class="bi bi-calendar"></i> 
-                <span><?php echo date("d/m", strtotime($rangoFechaRegreso[0])) ?></span>
-            </div>
+    <div class="calendar">
+        <div class="calendar__title">
+            <p>Febrero 2024</p>
         </div>
-        <div class="mini-container__more submenu__flights-item item-more">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-standing" viewBox="0 0 16 16">
-                <path d="M8 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM6 6.75v8.5a.75.75 0 0 0 1.5 0V10.5a.5.5 0 0 1 1 0v4.75a.75.75 0 0 0 1.5 0v-8.5a.25.25 0 1 1 .5 0v2.5a.75.75 0 0 0 1.5 0V6.5a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v2.75a.75.75 0 0 0 1.5 0v-2.5a.25.25 0 0 1 .5 0Z"/>
-            </svg> 
-            <span><?php echo $cantPasajes ?></span>
+        <div class="calendar__days-name">
+            <div>lun</div>
+            <div>mar</div>
+            <div>mié</div>
+            <div>jue</div>
+            <div>vie</div>
+            <div>sáb</div>
+            <div>dom</div>
         </div>
+        <ol class="calendar__days" id="calendar__days-vuelta">
+            <?php crearCalendario(date("d/m/Y", strtotime($_POST['fecha_regreso'])), $arrayIdsVuelosVuelta) ?>
+        </ol>
     </div>
-
-    <div class="submenu__flights-info">
-        <button type="button" class="submenu__flights-btn"><i class="bi bi-caret-down"></i> <span></span></button>
-    </div>
-
-</div>-->
-
+</div>
 
 <script src="../js/main.js" type="text/javascript"></script>
 <script src="../js/search_flights.js" type="text/javascript"></script>
