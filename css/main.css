@@ -127,11 +127,11 @@ header {
         display: block;
         left: -100%;
         width: 100%;
-        height: calc(100vh - 5.1rem);
+        height: calc(100vh - 5rem);
         transition: all .5s ease;
         position: absolute;
         flex-direction: column;
-        top: 5.1rem;
+        top: 5rem;
 
         background: white;
     }

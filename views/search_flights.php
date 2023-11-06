@@ -1,61 +1,66 @@
+<!-- IDA -->
+<div class="section__calendar" id="calendar_ida" calendar-date="11/2023">
+    <div class="container__data-calendar">
+        <span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plane-departure" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M14.639 10.258l4.83 -1.294a2 2 0 1 1 1.035 3.863l-14.489 3.883l-4.45 -5.02l2.897 -.776l2.45 1.414l2.897 -.776l-3.743 -6.244l2.898 -.777l5.675 5.727z"></path>
+                <path d="M3 21h18"></path>
+            </svg>
+        </span>
+        <span class="data__calendar-title">IDA</span>
+        <span>4 de noviembre de 2023</span>
+    </div>
 
-<div class="calendar">
-    <div class="calendar__title">
-        <h3>Noviembre de 2023</h3>
+    <div class="calendar">
+        <div class="calendar__title">
+            <p>Noviembre 2023</p>
+        </div>
+        <div class="calendar__days-name">
+            <div>lun</div>
+            <div>mar</div>
+            <div>mié</div>
+            <div>jue</div>
+            <div>vie</div>
+            <div>sáb</div>
+            <div>dom</div>
+        </div>
+        <ol class="calendar__days" id="calendar__days-ida">
+            <?php crearCalendario(date("d/m/Y", strtotime($_POST['fecha_salida'])), $arrayIdsVuelosIda) ?>
+        </ol>
     </div>
-    <div class="calendar__header">
-        <div>lun</div>
-        <div>mar</div>
-        <div>mié</div>
-        <div>jue</div>
-        <div>vie</div>
-        <div>sáb</div>
-        <div>dom</div>
+</div>
+
+<!-- VUELTA -->
+<div class="section__calendar" id="calendar_vuelta" calendar-date="02/2024">
+    <div class="container__data-calendar">
+        <span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plane-arrival" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M15.157 11.81l4.83 1.295a2 2 0 1 1 -1.036 3.863l-14.489 -3.882l-1.345 -6.572l2.898 .776l1.414 2.45l2.898 .776l-.12 -7.279l2.898 .777l2.052 7.797z"></path>
+                <path d="M3 21h18"></path>
+            </svg>
+        </span>
+        <span class="data__calendar-title">VUELTA</span>
+        <span>2 de febrero de 2024</span>
     </div>
-    <div class="calendar__week">
-        <div class="calendar__day day month-before">29</div>
-        <div class="calendar__day day month-before">30</div>
-        <div class="calendar__day day month-before">31</div>
-        <div class="calendar__day day">1</div>
-        <div class="calendar__day day">2</div>
-        <div class="calendar__day day">3</div>
-        <div class="calendar__day day">4</div>
-    </div>
-    <div class="calendar__week">
-        <div class="calendar__day day">5</div>
-        <div class="calendar__day day">6</div>
-        <div class="calendar__day day">7</div>
-        <div class="calendar__day day">8</div>
-        <div class="calendar__day day">9</div>
-        <div class="calendar__day day">10</div>
-        <div class="calendar__day day">11</div>        
-    </div>
-    <div class="calendar__week">
-        <div class="calendar__day day">12</div>
-        <div class="calendar__day day">13</div>
-        <div class="calendar__day day">14</div>
-        <div class="calendar__day day">15</div>
-        <div class="calendar__day day">16</div>
-        <div class="calendar__day day">17</div>
-        <div class="calendar__day day">18</div>    
-    </div>
-    <div class="calendar__week">
-        <div class="calendar__day day">19</div>
-        <div class="calendar__day day">20</div>
-        <div class="calendar__day day">21</div>
-        <div class="calendar__day day">22</div>
-        <div class="calendar__day day">23</div> 
-        <div class="calendar__day day">24</div> 
-        <div class="calendar__day day">25</div> 
-    </div>
-    <div class="calendar__week">
-        <div class="calendar__day day">26</div>
-        <div class="calendar__day day">27</div>
-        <div class="calendar__day day">28</div>
-        <div class="calendar__day day">30</div>
-        <div class="calendar__day day month-after">1</div>
-        <div class="calendar__day day month-after">2</div>
-        <div class="calendar__day day month-after">3</div>
+
+    <div class="calendar">
+        <div class="calendar__title">
+            <p>Febrero 2024</p>
+        </div>
+        <div class="calendar__days-name">
+            <div>lun</div>
+            <div>mar</div>
+            <div>mié</div>
+            <div>jue</div>
+            <div>vie</div>
+            <div>sáb</div>
+            <div>dom</div>
+        </div>
+        <ol class="calendar__days" id="calendar__days-vuelta">
+            <?php crearCalendario(date("d/m/Y", strtotime($_POST['fecha_regreso'])), $arrayIdsVuelosVuelta) ?>
+        </ol>
     </div>
 </div>
 

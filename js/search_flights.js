@@ -1,47 +1,59 @@
-const daysTag = document.querySelector(".days"),
-currentDate = document.querySelector(".current-date"),
-prevNextIcon = document.querySelectorAll(".icons span");
-// getting new date, current year and month
-let date = new Date(),
-currYear = date.getFullYear(),
-currMonth = date.getMonth();
-// storing full name of all months in array
-const months = ["January", "February", "March", "April", "May", "June", "July",
-              "August", "September", "October", "November", "December"];
-const renderCalendar = () => {
-    let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), // getting first day of month
-    lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), // getting last date of month
-    lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // getting last day of month
-    lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); // getting last date of previous month
-    let liTag = "";
-    for (let i = firstDayofMonth; i > 0; i--) { // creating li of previous month last days
-        liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
-    }
-    for (let i = 1; i <= lastDateofMonth; i++) { // creating li of all days of current month
-        // adding active class to li if the current day, month, and year matched
-        let isToday = i === date.getDate() && currMonth === new Date().getMonth() 
-                     && currYear === new Date().getFullYear() ? "active" : "";
-        liTag += `<li class="${isToday}">${i}</li>`;
-    }
-    for (let i = lastDayofMonth; i < 6; i++) { // creating li of next month first days
-        liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`
-    }
-    currentDate.innerText = `${months[currMonth]} ${currYear}`; // passing current mon and yr as currentDate text
-    daysTag.innerHTML = liTag;
-}
-renderCalendar();
-prevNextIcon.forEach(icon => { // getting prev and next icons
-    icon.addEventListener("click", () => { // adding click event on both icons
-        // if clicked icon is previous icon then decrement current month by 1 else increment it by 1
-        currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
-        if(currMonth < 0 || currMonth > 11) { // if current month is less than 0 or greater than 11
-            // creating a new date of current year & month and pass it as date value
-            date = new Date(currYear, currMonth, new Date().getDate());
-            currYear = date.getFullYear(); // updating current year with new date year
-            currMonth = date.getMonth(); // updating current month with new date month
-        } else {
-            date = new Date(); // pass the current date as date value
+/*const date_ida = document.getElementById("calendar_ida").getAttribute("calendar-date")
+const date_vuelta = document.getElementById("calendar_vuelta").getAttribute("calendar-date")
+
+const [month_ida, year_ida] = date_ida.split('/');
+const [month_vuelta, year_vuelta] = date_vuelta.split('/');
+
+// Obtén el elemento del calendario
+const calendario_ida = document.getElementById('calendar__days-ida');
+const calendario_vuelta = document.getElementById('calendar__days-vuelta');
+
+createDinamicCalender(calendario_ida, month_ida, year_ida)
+createDinamicCalender(calendario_vuelta, month_vuelta, year_vuelta)
+
+function createDinamicCalender(calendario, month, year) {
+    // Limpia el calendario antes de crear uno nuevo
+    calendario.innerHTML = '';
+    
+    //Obtener el numero de día del primero (0 al 6) y obtener el numero del ultimo día del mes
+    const firstDay = new Date(`${year}-${month}-01`).getDay();
+    const lastDay = new Date(year, month, 0).getDate();
+
+    // Obtén el primer día de la semana del mes anterior
+    const firstDayPrevious = new Date(year, month - 1, 1).getDay();
+    const prevMonthDays = new Date(year, month - 1, 0).getDate();
+    
+    // Calcula el número de semanas necesarias (casi siempre es 5, pero en algunos febreros son 4, ej: feb. 2021)
+    const totalWeeks = Math.ceil((lastDay + firstDay) / 7) + 1;
+    
+    // Llena el calendario con los días del mes
+    let dayCounter = 1;
+    let dayCounterNextMonth = 1;
+    
+    for (let row = 1; row < totalWeeks; row++) {
+        for (let col = 1; col < 8; col++) {
+            const calendarDay = document.createElement('li');
+            calendarDay.classList.add('calendar__day');
+    
+            // Calcula el índice del día en el calendario
+            const dayIndex = (row - 1) * 7 + col;
+
+            if (dayIndex < firstDayPrevious) {
+                // Días del mes anterior
+                const prevMonthDay = prevMonthDays - (firstDayPrevious - dayIndex) + 1;
+                calendarDay.textContent = prevMonthDay;
+                calendarDay.classList.add('inactive');
+            } else if (dayCounter <= lastDay) {
+                // Días del mes actual
+                calendarDay.textContent = dayCounter;
+                dayCounter++;
+            } else {
+                // Días del mes siguiente
+                calendarDay.textContent = dayCounterNextMonth++;
+                calendarDay.classList.add('inactive');
+            }
+    
+            calendario.appendChild(calendarDay);
         }
-        renderCalendar(); // calling renderCalendar function
-    });
-});
+    }
+}*/

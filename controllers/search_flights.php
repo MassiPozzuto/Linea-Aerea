@@ -10,7 +10,6 @@ if((isset($_POST["checkbox_ida"]) || isset($_POST["checkbox_ida-vuelta"])) && is
     $cantPasajes = $_POST["cant_pasajeros"];
     $clase = $_POST["clase"];
 
-    
     $fechaActual = date("Y-m-d");
     $rangoFechaSalida[0] = date("Y-m-d", strtotime($_POST['fecha_salida']));
     $rangoFechaSalida[1] = date("Y-m-d", strtotime($_POST['fecha_salida']. "- 15 days"));
@@ -53,8 +52,16 @@ if((isset($_POST["checkbox_ida"]) || isset($_POST["checkbox_ida-vuelta"])) && is
                         a2.nombre AS nom_arpto_dest FROM Vuelos v
                     INNER JOIN Aeropuertos a ON v.id_aero_origen = a.id
                     INNER JOIN Aeropuertos a2 ON v.id_aero_destino = a2.id
-                    WHERE id_aero_origen = 37 AND id_aero_destino = 11 AND fecha_partida BETWEEN '" . $rangoFechaSalida[1] . "' AND '" . $rangoFechaSalida[2] . "'";
+                    WHERE id_aero_origen = $lugarOrigen AND id_aero_destino = $lugarDestino AND fecha_partida BETWEEN '" . $rangoFechaSalida[1] . "' AND '" . $rangoFechaSalida[2] . "'";
     $resultVuelosIda = sqlsrv_query($conn, $sqlVuelosIda);
+    $arrayIdsVuelosIda = array();
+    while ($row = sqlsrv_fetch_array($resultVuelosIda, SQLSRV_FETCH_ASSOC)) {
+        // Obtén una cadena formateada de la fecha (por ejemplo, 'Y-m-d')
+        $cadenaFecha = $row['fecha_partida']->format('Y-m-d');
+        $prueba = explode(' ', $cadenaFecha);
+        $prueba2 = explode('-', $prueba[0]);
+        $arrayIdsVuelosIda[] = $prueba2[2];
+    }
 
     if ($tipoVuelo == "ida-vuelta") {
         if (isset($_POST['fecha_regreso'])) {
@@ -69,12 +76,86 @@ if((isset($_POST["checkbox_ida"]) || isset($_POST["checkbox_ida-vuelta"])) && is
 
             $sqlVuelosVuelta = "SELECT * FROM Vuelos WHERE id_aero_origen = $lugarDestino AND id_aero_destino = $lugarOrigen AND fecha_partida BETWEEN '" . $rangoFechaSalida[1] . "' AND '" . $rangoFechaSalida[2] . "'";
             $resultVuelosVuelta = sqlsrv_query($conn, $sqlVuelosVuelta);
+
+            $arrayIdsVuelosVuelta = array();
+            while ($row = sqlsrv_fetch_array($resultVuelosVuelta, SQLSRV_FETCH_ASSOC)) {
+                // Obtén una cadena formateada de la fecha (por ejemplo, 'Y-m-d')
+                $cadenaFecha = $row['fecha_partida']->format('Y-m-d');
+                $prueba = explode(' ', $cadenaFecha);
+                $prueba2 = explode('-', $prueba[0]);
+                $arrayIdsVuelosVuelta[] = $prueba2[2];
+            }
         }
     }
 
 } else {
     //Algun dato no existe 
 }
+
+function crearCalendario($fecha, $fechasSeleccionables = [])
+{
+    // Verifica que la fecha tenga el formato correcto (DD/MM/YYYY)
+    $fechaObj = DateTime::createFromFormat('d/m/Y', $fecha);
+    if (!$fechaObj || $fechaObj->format('d/m/Y') !== $fecha) {
+        echo 'Ingresa una fecha válida en el formato DD/MM/YYYY';
+        return;
+    }
+
+    // Obtén el mes y el año de la fecha ingresada
+    $day = $fechaObj->format('d');
+    $month = $fechaObj->format('m');
+    $year = $fechaObj->format('Y');
+
+    // Obtén el primer día de la semana del mes anterior
+    $firstDay = date('w', strtotime("$year-$month-01")) - 1;
+    $prevMonthDays = date('t', strtotime("$year-$month-01 -1 month"));
+
+    // Calcula el número de semanas necesarias
+    $lastDay = date('t', strtotime("$year-$month-01"));
+    $totalWeeks = ceil(($lastDay + $firstDay) / 7);
+
+    // Imprime el calendario
+    $dayCounter = 1;
+    $dayCounterNextMonth = 1;
+
+    for ($row = 1; $row <= $totalWeeks; $row++) {
+        for ($col = 0; $col < 7; $col++) {
+            $dayIndex = ($row - 1) * 7 + $col + 1;
+            
+            if(in_array($dayCounter, $fechasSeleccionables)){
+                echo '<li class="calendar__day day-selectable '. (($day == $dayCounter) ? 'day-selected' : null) .'">
+                        <div>';
+                $daySelectable = true;
+            } else {
+                echo '<li class="calendar__day ' . (($day == $dayCounter) ? 'day-selected' : null) . '">
+                        <div>';
+                $daySelectable = false;
+            }
+
+            if ($dayIndex <= $firstDay) {
+                $prevMonthDay = $prevMonthDays - ($firstDay - $dayIndex);
+                echo $prevMonthDay . '</div>';
+            } elseif ($dayCounter <= $lastDay) {
+                echo $dayCounter . '</div>';
+                $dayCounter++;
+            } else {
+                echo $dayCounterNextMonth . '</div>';
+                $dayCounterNextMonth++;
+            }
+
+            if($daySelectable){
+                echo '<div class="day__selectable-data">
+                        <div class="day__data-price">133091</div>
+                        <div class="day__data-coin">ARS</div>
+                    </div>';
+            }
+
+            echo '</li>';
+        }
+    }
+
+}
+
 
 $page = "Vuelo buscado";
 $section = "search_flights";
