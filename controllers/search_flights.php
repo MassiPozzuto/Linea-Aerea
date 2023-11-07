@@ -11,16 +11,10 @@ if((isset($_POST["checkbox_ida"]) || isset($_POST["checkbox_ida-vuelta"])) && is
     $clase = $_POST["clase"];
 
     $fechaActual = date("Y-m-d");
-    $rangoFechaSalida[0] = date("Y-m-d", strtotime($_POST['fecha_salida']));
-    $rangoFechaSalida[1] = date("Y-m-d", strtotime($_POST['fecha_salida']. "- 15 days"));
-    $rangoFechaSalida[2] = date("Y-m-d", strtotime($_POST['fecha_salida'] . "+ 15 days"));
-    if(strtotime($fechaActual) > strtotime($rangoFechaSalida[0])){
+    $mesDeSalida = date("m", strtotime($_POST['fecha_salida']));
+    if(strtotime($fechaActual) > strtotime($_POST['fecha_salida'])){
         ////La fecha ingresada es antes que la actualidad
         echo "No puede volar en el pasado. <br>";
-    }
-    if( (strtotime($rangoFechaSalida[1]) - strtotime($fechaActual)) < 0){
-        // La fecha de salida -15 dias da una fecha menor a la actualidad
-        $rangoFechaSalida[1] = $fechaActual;
     }
     
     if($cantPasajes < 1 || $cantPasajes > 9){
@@ -46,40 +40,43 @@ if((isset($_POST["checkbox_ida"]) || isset($_POST["checkbox_ida-vuelta"])) && is
         $i++;
     }
     //Cambio el formato de fechas porque SQLSERVER es la pija mas grande que existe en la historia
-    $rangoFechaSalida[1] = date("Y-m-d", strtotime($rangoFechaSalida[1]));
-    $rangoFechaSalida[2] = date("Y-m-d", strtotime($rangoFechaSalida[2]));
     $sqlVuelosIda = "SELECT v.id, v.fecha_partida, v.fecha_arribo, v.escalas, v.precio_base,a.ubicacion AS ubi_arpto_ori, a2.ubicacion AS ubi_arpto_dest, a.nombre AS nom_arpto_ori, 
                         a2.nombre AS nom_arpto_dest FROM Vuelos v
                     INNER JOIN Aeropuertos a ON v.id_aero_origen = a.id
                     INNER JOIN Aeropuertos a2 ON v.id_aero_destino = a2.id
-                    WHERE id_aero_origen = $lugarOrigen AND id_aero_destino = $lugarDestino AND fecha_partida BETWEEN '" . $rangoFechaSalida[1] . "' AND '" . $rangoFechaSalida[2] . "'";
+                    WHERE id_aero_origen = $lugarOrigen AND id_aero_destino = $lugarDestino AND MONTH(fecha_partida) = $mesDeSalida AND fecha_partida >= GETDATE()
+                    ORDER BY v.fecha_partida";
     $resultVuelosIda = sqlsrv_query($conn, $sqlVuelosIda);
-    $arrayVuelosIda = array();
+
+    $i = 0;
     while ($row = sqlsrv_fetch_array($resultVuelosIda, SQLSRV_FETCH_ASSOC)) {
         // Obtén una cadena formateada de la fecha (por ejemplo, 'Y-m-d')
-        $cadenaFecha = explode(' ', $row['fecha_partida']->format('Y-m-d'));
-        $arrayVuelosIda[] = explode('-', $cadenaFecha[0])[2];
+        $arrayVuelosIda[$i] = $row;
+        $arrayVuelosIda[$i]['fecha_partida'] = $row['fecha_partida']->format('Y-m-d');       
+        $i++;
     }
 
     if ($tipoVuelo == "ida-vuelta") {
         if (isset($_POST['fecha_regreso'])) {
-            $rangoFechaRegreso[0] = date("Y-m-d", strtotime($_POST['fecha_regreso']));
-            $rangoFechaRegreso[1] = date("Y-m-d", strtotime($_POST['fecha_regreso'] . "- 15 days"));
-            $rangoFechaRegreso[2] = date("Y-m-d", strtotime($_POST['fecha_regreso'] . "+ 15 days"));
-
-            if (strtotime($rangoFechaSalida[0]) > strtotime($rangoFechaRegreso[0]) || strtotime($fechaActual) > strtotime($rangoFechaRegreso[0])) {
+            $mesDeRegreso = date("m", strtotime($_POST['fecha_regreso']));
+            if (strtotime($_POST['fecha_salida']) > strtotime($_POST['fecha_regreso']) || strtotime($fechaActual) > strtotime($_POST['fecha_regreso'])) {
                 ////La fecha de vuelta es anterior a la de salida o es el pasado
                 echo "No puede regresar en el pasado. <br>";
             }
 
-            $sqlVuelosVuelta = "SELECT * FROM Vuelos WHERE id_aero_origen = $lugarDestino AND id_aero_destino = $lugarOrigen AND fecha_partida BETWEEN '" . $rangoFechaSalida[1] . "' AND '" . $rangoFechaSalida[2] . "'";
+            $sqlVuelosVuelta = "SELECT v.id, v.fecha_partida, v.fecha_arribo, v.escalas, v.precio_base,a.ubicacion AS ubi_arpto_ori, a2.ubicacion AS ubi_arpto_dest, a.nombre 
+                                    AS nom_arpto_ori, a2.nombre AS nom_arpto_dest FROM Vuelos v
+                                INNER JOIN Aeropuertos a ON v.id_aero_origen = a.id
+                                INNER JOIN Aeropuertos a2 ON v.id_aero_destino = a2.id 
+                                WHERE id_aero_origen = $lugarDestino AND id_aero_destino = $lugarOrigen AND MONTH(fecha_partida) = $mesDeSalida AND fecha_partida >= GETDATE()
+                                ORDER BY fecha_partida";
             $resultVuelosVuelta = sqlsrv_query($conn, $sqlVuelosVuelta);
 
-            $arrayIdsVuelosVuelta = array();
+            $i = 0;
             while ($row = sqlsrv_fetch_array($resultVuelosVuelta, SQLSRV_FETCH_ASSOC)) {
-                // Obtén una cadena formateada de la fecha (por ejemplo, 'Y-m-d')
-                $cadenaFecha = explode(' ', $row['fecha_partida']->format('Y-m-d'));
-                $arrayIdsVuelosIda[] = explode('-', $cadenaFecha[0])[2];
+                $arrayVuelosVuelta[$i] = $row;
+                $arrayVuelosVuelta[$i]['fecha_partida'] = $row['fecha_partida']->format('Y-m-d');
+                $i++;
             }
         }
     }
@@ -88,13 +85,14 @@ if((isset($_POST["checkbox_ida"]) || isset($_POST["checkbox_ida-vuelta"])) && is
     //Algun dato no existe 
 }
 
-function crearCalendario($fecha, $fechasSeleccionables = [], $dataVuelos)
+function crearCalendario($fecha, $dataVuelos)
 {
     // Verifica que la fecha tenga el formato correcto (DD/MM/YYYY)
     $fechaObj = DateTime::createFromFormat('d/m/Y', $fecha);
-    if (!$fechaObj || $fechaObj->format('d/m/Y') !== $fecha) {
-        echo 'Ingresa una fecha válida en el formato DD/MM/YYYY';
-        return;
+    
+    $fechasSeleccionables = array();
+    foreach ($dataVuelos as $item) {
+        $fechasSeleccionables[] = explode("-", $item['fecha_partida'])[2];
     }
 
     // Obtén el mes y el año de la fecha ingresada
@@ -113,13 +111,14 @@ function crearCalendario($fecha, $fechasSeleccionables = [], $dataVuelos)
     // Imprime el calendario
     $dayCounter = 1;
     $dayCounterNextMonth = 1;
+    $i = 0;
 
     for ($row = 1; $row <= $totalWeeks; $row++) {
         for ($col = 0; $col < 7; $col++) {
             $dayIndex = ($row - 1) * 7 + $col + 1;
             
             if(in_array($dayCounter, $fechasSeleccionables)){
-                echo '<li class="calendar__day day-selectable '. (($day == $dayCounter) ? 'day-selected' : null) .'">
+                echo '<li class="calendar__day day-selectable '. (($day == $dayCounter) ? 'day-selected' : null) . '" id="flight_' . $dataVuelos[$i]['id'] . '">
                         <div>';
                 $daySelectable = true;
             } else {
@@ -140,10 +139,11 @@ function crearCalendario($fecha, $fechasSeleccionables = [], $dataVuelos)
             }
 
             if($daySelectable){
-                echo '<div class="day__selectable-data">
-                        <div class="day__data-price">133091</div>
+                echo '<div class="day__selectable-data" >
+                        <div class="day__data-price">'. $dataVuelos[$i]['precio_base'] .'</div>
                         <div class="day__data-coin">ARS</div>
                     </div>';
+                $i++;
             }
 
             echo '</li>';
@@ -152,62 +152,26 @@ function crearCalendario($fecha, $fechasSeleccionables = [], $dataVuelos)
 
 }
 
-function formatearFecha($fecha){
+function formatearFecha($fecha, $tipo = 1){
     $fecha = date("Y-m-d", strtotime($fecha)); // Aseguramos que la fecha esté en formato "Y-m-d"
-
     // Array de nombres de meses en español
-    $meses = array(
-        1 => "enero",
-        2 => "febrero",
-        3 => "marzo",
-        4 => "abril",
-        5 => "mayo",
-        6 => "junio",
-        7 => "julio",
-        8 => "agosto",
-        9 => "septiembre",
-        10 => "octubre",
-        11 => "noviembre",
-        12 => "diciembre"
+    $meses = array(1 => "enero", 2 => "febrero", 3 => "marzo", 4 => "abril", 5 => "mayo", 6 => "junio", 7 => "julio", 8 => "agosto", 9 => "septiembre", 10 => "octubre", 11 => "noviembre", 12 => "diciembre"
     );
 
-    // Dividimos la fecha en año, mes y día
-    list($anio, $mes, $dia) = explode("-", $fecha);
-
-    // Obtenemos el nombre del mes en español
-    $mesTexto = $meses[intval($mes)];
-
-    return "$dia de $mesTexto de $anio";
+    if($tipo == 1){
+        // Dividimos la fecha en año, mes y día
+        list($anio, $mes, $dia) = explode("-", $fecha);
+        // Obtenemos el nombre del mes en español
+        $mesTexto = $meses[intval($mes)];
+        return "$dia de $mesTexto de $anio";
+    } else {
+        // Dividimos la fecha en año, mes y día
+        $fechaSeparada = explode("-", $fecha);
+        // Obtenemos el nombre del mes en español
+        $mesTexto = $meses[intval($fechaSeparada[1])];
+        return "$mesTexto " . $fechaSeparada[0];
+    }
 }
-
-function formatearFecha2($fecha){
-    $fecha = date("Y-m-d", strtotime($fecha)); // Aseguramos que la fecha esté en formato "Y-m-d"
-
-    // Array de nombres de meses en español
-    $meses = array(
-        1 => "enero",
-        2 => "febrero",
-        3 => "marzo",
-        4 => "abril",
-        5 => "mayo",
-        6 => "junio",
-        7 => "julio",
-        8 => "agosto",
-        9 => "septiembre",
-        10 => "octubre",
-        11 => "noviembre",
-        12 => "diciembre"
-    );
-
-    // Dividimos la fecha en año, mes y día
-    $fechaSeparada = explode("-", $fecha);
-
-    // Obtenemos el nombre del mes en español
-    $mesTexto = $meses[intval($fechaSeparada[1])];
-
-    return "$mesTexto " . $fechaSeparada[0] ;
-}
-
 
 $page = "Vuelo buscado";
 $section = "search_flights";

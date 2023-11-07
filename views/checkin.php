@@ -132,7 +132,7 @@ try {
 						<span class="close"><i class="zmdi zmdi-close"></i></span>
 						<div>
 							<h6>Desde</h6>
-							<span class="airport-name" data-role="from" style="font-size:14px;"><?php echo utf8_encode($aeropuertoOrigen) ?></span>
+							<span class="airport-name" data-role="from" style="font-size:14px;"><?php echo $aeropuertoOrigen ?></span>
 						</div>
 					</div>
 					<div class="control-body">
@@ -150,7 +150,7 @@ try {
 						<span class="close"><i class="zmdi zmdi-close"></i></span>
 						<div>
 							<h6>A aeropuerto</h6>
-							<span class="airport-name" data-role="to" style="font-size:14px;"><?php echo utf8_encode($aeropuertoDestino) ?></span>
+							<span class="airport-name" data-role="to" style="font-size:14px;"><?php echo $aeropuertoDestino ?></span>
 						</div>
 					</div>
 					<div class="control-body">
@@ -191,12 +191,12 @@ try {
 						<h6 style="margin-bottom: 8px">Clase</h6>
 						<label>
 							<input type="radio" name="seat" value="Economy" checked="checked">
-							<span><?php echo utf8_encode($clase) ?></span>
+							<span><?php echo $clase ?></span>
 						</label>
 					</div>
 				</div>
 				<div class="control control2">
-					Nombre: <h6> <?php echo utf8_encode($nombre . " " . $apellido) ?></h6>
+					Nombre: <h6> <?php echo "$nombre $apellido" ?></h6>
 				</div>
 				<div class="control control2">
 
