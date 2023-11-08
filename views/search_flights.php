@@ -37,6 +37,7 @@
 
         <!-- IDA -->
         <div class="section__calendar" id="calendar_ida" calendar-date="11/2023">
+
             <div class="container__data-calendar">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plane-departure" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -44,7 +45,7 @@
                     <path d="M3 21h18"></path>
                 </svg>
                 <span class="data__calendar-title">IDA</span>
-                <span><?php echo formatearFecha($_POST['fecha_salida'], 1); ?></span>
+                <span id="calendar__departure-date"><?php echo formatearFecha($_POST['fecha_salida'], 1); ?></span>
             </div>
 
             <div class="calendar">
@@ -77,7 +78,7 @@
                         <path d="M3 21h18"></path>
                     </svg>
                     <span class="data__calendar-title">VUELTA</span>
-                    <span><?php echo formatearFecha($_POST['fecha_regreso'], 1); ?></span>
+                    <span id="calendar__return-date"><?php echo formatearFecha($_POST['fecha_regreso'], 1); ?></span>
                 </div>
 
                 <div class="calendar">
@@ -112,21 +113,21 @@
         <div class="data__flights-ida">
             <label class="data__flights-type">IDA</label>
             <label class="data__flights-airport"><?php echo $arrayVuelosIda[0]['ubi_arpto_ori'] ?></label>
-            <label class="data__flights-day"><?php echo date("d/m/Y", strtotime($_POST['fecha_salida'])) ?></label>
-            <label class="data__flights-price">ARS 182.268</label>
+            <label class="data__flights-day" id="footer__departure-date"><?php echo date("d/m/Y", strtotime($_POST['fecha_salida'])) ?></label>
+            <label class="data__flights-price" id="footer__departure-price"></label>
         </div>
         <div class="data__flights-vuelta">
             <label class="data__flights-type">VUELTA</label>
             <label class="data__flights-airport"><?php echo $arrayVuelosVuelta[0]['ubi_arpto_ori'] ?></label>
-            <label class="data__flights-day"><?php echo date("d/m/Y", strtotime($_POST['fecha_regreso'])) ?></label>
-            <label class="data__flights-price">ARS 369.501</label>
+            <label class="data__flights-day" id="footer__return-date"><?php echo date("d/m/Y", strtotime($_POST['fecha_regreso'])) ?></label>
+            <label class=" data__flights-price" id="footer__return-price"></label>
         </div>
     </div>
 
     <div class="container__data-specific">
         <div class="container__total-value">
             <label class="total__value-title">Total por pasajero/a</label>
-            <label class="total__value-number">ARS 551.769</label>
+            <label class="total__value-number" id="footer__total-price"></label>
         </div>
         <div class="container__view-flights">
             <button type="button" class="btn__view-flights">Ver vuelos</button>

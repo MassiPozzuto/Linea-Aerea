@@ -68,7 +68,7 @@ if((isset($_POST["checkbox_ida"]) || isset($_POST["checkbox_ida-vuelta"])) && is
                                     AS nom_arpto_ori, a2.nombre AS nom_arpto_dest FROM Vuelos v
                                 INNER JOIN Aeropuertos a ON v.id_aero_origen = a.id
                                 INNER JOIN Aeropuertos a2 ON v.id_aero_destino = a2.id 
-                                WHERE id_aero_origen = $lugarDestino AND id_aero_destino = $lugarOrigen AND MONTH(fecha_partida) = $mesDeSalida AND fecha_partida >= GETDATE()
+                                WHERE id_aero_origen = $lugarDestino AND id_aero_destino = $lugarOrigen AND MONTH(fecha_partida) = $mesDeRegreso AND fecha_partida >= GETDATE()
                                 ORDER BY fecha_partida";
             $resultVuelosVuelta = sqlsrv_query($conn, $sqlVuelosVuelta);
 
@@ -112,17 +112,18 @@ function crearCalendario($fecha, $dataVuelos)
     $dayCounter = 1;
     $dayCounterNextMonth = 1;
     $i = 0;
+    $cantVeces = 0;
 
     for ($row = 1; $row <= $totalWeeks; $row++) {
         for ($col = 0; $col < 7; $col++) {
             $dayIndex = ($row - 1) * 7 + $col + 1;
-            
-            if(in_array($dayCounter, $fechasSeleccionables)){
-                echo '<li class="calendar__day day-selectable '. (($day == $dayCounter) ? 'day-selected' : null) . '" id="flight_' . $dataVuelos[$i]['id'] . '">
+            $cantVeces++;
+            if(in_array($dayCounter, $fechasSeleccionables) && $firstDay <  $cantVeces){
+                echo '<li class="calendar__day day-selectable '. (($day == $dayCounter) ? 'day-selected' : null) . '" id="flight_' . $dataVuelos[$i]['id'] . '" data-day="' . $dataVuelos[$i]['fecha_partida'] . '">
                         <div>';
                 $daySelectable = true;
             } else {
-                echo '<li class="calendar__day ' . (($day == $dayCounter) ? 'day-selected' : null) . '">
+                echo '<li class="calendar__day ' . (($day == $dayCounter && $firstDay <  $cantVeces) ? 'day-selected' : null) . '">
                         <div>';
                 $daySelectable = false;
             }

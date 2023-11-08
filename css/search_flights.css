@@ -34,11 +34,19 @@
     display: flex;
     align-items: center;
 
-    border: none;
     padding: 10px;
     border-radius: .25rem;
     font-size: 14px;
-    background-color: #d5d5d5;
+    background-color: transparent;
+    border: 1px solid orange;
+    color: orange;
+
+    transition: background-color 0.3s ease 0s;
+}
+.submenu__flights-btn:hover {
+  border-color: #E3E3E3;
+  background-color: #E3E3E3;
+  color: #6F6F6F;
 }
 
 .submenu__flights-btn i {
@@ -68,6 +76,12 @@
         border-radius: none;
         font-size: 25px;
         background-color: inherit;
+        border: 0;
+    }
+    .submenu__flights-btn:hover {
+      border-color: 0;
+      background-color: transparent;
+      color: #6F6F6F;
     }
 
     .submenu__flights-btn i {
@@ -177,8 +191,10 @@
   border-top: 1px solid #e1e1e1;
   font-size: 14px;
   padding: 16px;
+
+  overflow: hidden;
 }
-  .calendar__day:nth-child(7n) {
+  .calendar__day:nth-child(7n):not(.day-selectable) {
     border-right: 0;
   }
 
@@ -363,5 +379,59 @@
 
   .btn__view-flights {
     font-size: 1.2rem;
+  }
+}
+
+
+@media(max-width: 800px){ 
+  .calendar__day  {
+    padding: 10px;
+  }
+  .day-selected {
+    padding: 7px;
+  }
+}
+@media(max-width: 610px){ 
+  .calendar__days {
+    grid-auto-rows: 75px;
+  }
+  .calendar__day  {
+    padding: 6px;
+  }
+  .day-selected {
+    padding: 3px;
+  }
+  .day__selectable-data {
+    align-items: start;
+  }
+  .day__data-price {
+    font-size: 14px;
+  }
+  .day__data-coin {
+    font-size: 10px;
+  }
+}
+@media(max-width: 510px){ 
+  .container {
+    padding: 0;
+  }
+}
+@media(max-height: 430px) {
+  header {
+    height: 4rem;
+    position: relative;
+  }
+  .footer_data-flights {
+    min-height: auto;
+    padding: 12px;
+  }
+  .total__value-title {
+    font-size: 12px;
+  }
+  .total__value-number {
+    font-size: 1.2rem;
+  }
+  .btn__view-flights {
+    font-size: 14px;
   }
 }

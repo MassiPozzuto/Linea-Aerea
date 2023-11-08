@@ -8,7 +8,7 @@
 
     <ul class="container__list-buttons">
         <li class="container__btn-home">
-            <a href="home.php?activeTab=flights">RESERVAR</a>
+            <a href="home.php?activeTab=flights" id="item-reserve">RESERVAR</a>
         </li>
         <li class="container_dropdown" id="container_dropdown-manage">
             <a href="#" class="">GESTIONAR</a>
