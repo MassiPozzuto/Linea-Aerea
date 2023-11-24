@@ -55,7 +55,8 @@ if((isset($_POST["checkbox_ida"]) || isset($_POST["checkbox_ida-vuelta"])) && is
         $arrayVuelosIda[$i]['fecha_partida'] = $row['fecha_partida']->format('Y-m-d');       
         $i++;
     }
-
+    
+    
     if ($tipoVuelo == "ida-vuelta") {
         if (isset($_POST['fecha_regreso'])) {
             $mesDeRegreso = date("m", strtotime($_POST['fecha_regreso']));
@@ -84,6 +85,7 @@ if((isset($_POST["checkbox_ida"]) || isset($_POST["checkbox_ida-vuelta"])) && is
 } else {
     //Algun dato no existe 
 }
+
 
 function crearCalendario($fecha, $dataVuelos)
 {

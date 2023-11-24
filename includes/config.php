@@ -14,7 +14,7 @@ if (!$conn) {
 
 session_start();
 
-if ((isset($_COOKIE['email']) || isset($_COOKIE['password'])) && !isset($_SESSION['user'])) {
+if ((isset($_COOKIE['email']) && isset($_COOKIE['password'])) && !isset($_SESSION['user'])) {
   $sqlLogin = "SELECT users.* FROM users 
                   WHERE users.email='" . $_COOKIE['email'] . "' AND users.password='" . $_COOKIE['password'] . "' AND users.deleted_at IS NULL";
   $resultLogin = sqlsrv_query($conn, $sqlLogin);

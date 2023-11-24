@@ -33,8 +33,7 @@
 
 <div class="container">
     <?php
-    if ((!empty($arrayIdsVuelosIda) || $tipoVuelo == "ida-vuelta" && !empty($arrayVuelosVuelta))) { ?>
-
+    if (!empty($arrayVuelosIda) && ($tipoVuelo == 'ida' || ($tipoVuelo == 'ida-vuelta' && !empty($arrayVuelosVuelta)))) { ?>
         <!-- IDA -->
         <div class="section__calendar" id="calendar_ida" calendar-date="11/2023">
 
@@ -66,9 +65,8 @@
                 </ol>
             </div>
         </div>
-
         <?php
-        if ($tipoVuelo == "ida-vuelta") { ?>
+        if ($tipoVuelo == 'ida-vuelta') { ?>
             <!-- VUELTA -->
             <div class="section__calendar" id="calendar_vuelta" calendar-date="02/2024">
                 <div class="container__data-calendar">
@@ -99,7 +97,6 @@
                     </ol>
                 </div>
             </div>
-
         <?php
         }
     } else { ?>
@@ -116,12 +113,17 @@
             <label class="data__flights-day" id="footer__departure-date"><?php echo date("d/m/Y", strtotime($_POST['fecha_salida'])) ?></label>
             <label class="data__flights-price" id="footer__departure-price"></label>
         </div>
-        <div class="data__flights-vuelta">
-            <label class="data__flights-type">VUELTA</label>
-            <label class="data__flights-airport"><?php echo $arrayVuelosVuelta[0]['ubi_arpto_ori'] ?></label>
-            <label class="data__flights-day" id="footer__return-date"><?php echo date("d/m/Y", strtotime($_POST['fecha_regreso'])) ?></label>
-            <label class=" data__flights-price" id="footer__return-price"></label>
-        </div>
+
+        <?php
+        if ($tipoVuelo == 'ida-vuelta') { ?>
+            <div class="data__flights-vuelta">
+                <label class="data__flights-type">VUELTA</label>
+                <label class="data__flights-airport"><?php echo $arrayVuelosVuelta[0]['ubi_arpto_ori'] ?></label>
+                <label class="data__flights-day" id="footer__return-date"><?php echo date("d/m/Y", strtotime($_POST['fecha_regreso'])) ?></label>
+                <label class=" data__flights-price" id="footer__return-price"></label>
+            </div>
+        <?php
+        } ?>
     </div>
 
     <div class="container__data-specific">
@@ -129,9 +131,11 @@
             <label class="total__value-title">Total por pasajero/a</label>
             <label class="total__value-number" id="footer__total-price"></label>
         </div>
-        <div class="container__view-flights">
-            <button type="button" class="btn__view-flights">Ver vuelos</button>
-        </div>
+        <form class="container__view-flights" method="POST" action="">
+            <input type="number" name="flights-ida" hidden disabled>
+            <input type="number" name="flights-vuelta" hidden disabled>
+            <button type="button" class="btn__view-flights" id="btn-view-flights">Ver vuelos</button>
+        </form>
     </div>
 </div>
 
