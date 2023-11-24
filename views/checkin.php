@@ -105,11 +105,11 @@ try {
 		<div class="filter"></div>
 		<div class="title">
 			<div class="fromPlace">
-			<?php echo $nombreAeropuertoPartida ?>
+				<?php echo $nombreAeropuertoPartida ?>
 			</div>
 			<span class="separator"><i class="zmdi zmdi-airplane"></i></span>
 			<div class="toPlace">
-			<?php echo $nombreAeropuertoDestino ?>
+				<?php echo $nombreAeropuertoDestino ?>
 			</div>
 		</div>
 		<div class="map"></div>

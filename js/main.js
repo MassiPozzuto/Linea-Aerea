@@ -12,11 +12,11 @@ btn_list.addEventListener('click', () => {
 // Dropdowns header
 if ($(".list_menu").css("display") == "none") {
     //Dropdown por hover
-    $( ".container_dropdown" ).hover(
-        function() {
+    $(".container_dropdown").hover(
+        function () {
             id = this.id.split("-")[1]
             $(".dropdown-" + id).stop(true).delay(300).slideDown(250)
-        }, function() {
+        }, function () {
             $(".dropdown-" + id).stop(true).delay(0).slideUp(250)
         }
     )
@@ -30,7 +30,7 @@ if ($(".list_menu").css("display") == "none") {
         dropdowns = $(".dropdown")
         for (i = 0; i < dropdowns.length; i++) {
             var btn_dropdown = $(dropdowns[i]).parent().children().first()
-            
+
             if (dropdowns[i] != $(".dropdown-" + id)[0]) {
                 // Cerrar los dropdowns abiertos, si es que hay
                 $(dropdowns[i]).slideUp(250)
@@ -50,7 +50,7 @@ if ($(".list_menu").css("display") == "none") {
                         btn_dropdown.removeClass("btn_dropdown-disabled")
                         btn_dropdown.addClass("btn_dropdown-active")
                     }
-                    
+
                 }
             }
         }
