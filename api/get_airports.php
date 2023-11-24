@@ -11,7 +11,7 @@ if(!$result){
 $i = 0;
 $aeropuertos = [];
 while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
-    $row['ubicacion'] = utf8_encode($row['ubicacion']);
+    $row['ubicacion'] = $row['ubicacion'];
     $aeropuertos[$i] = $row;
     $i++;
 }

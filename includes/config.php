@@ -4,8 +4,8 @@ date_default_timezone_set('America/Argentina/Buenos_Aires');
 define('RUTA', '/Linea-Aerea');
 define('CANT_REG_PAG', 30);
 
-$connectionInfo = array( "Database" => "aerolinea");
-$conn = sqlsrv_connect( "DESKTOP-QB22C4J\SQLEXPRESS", $connectionInfo);
+$connectionInfo = array( "Database" =>"aerolinea", "CharacterSet" => "UTF-8");
+$conn = sqlsrv_connect("DESKTOP-ICVU3VT", $connectionInfo);
 
 if (!$conn) {
   echo "Conexión no se pudo establecer.<br />";
@@ -14,7 +14,7 @@ if (!$conn) {
 
 session_start();
 
-if ((isset($_COOKIE['email']) || isset($_COOKIE['password'])) && !isset($_SESSION['user'])) {
+if ((isset($_COOKIE['email']) && isset($_COOKIE['password'])) && !isset($_SESSION['user'])) {
   $sqlLogin = "SELECT users.* FROM users 
                   WHERE users.email='" . $_COOKIE['email'] . "' AND users.password='" . $_COOKIE['password'] . "' AND users.deleted_at IS NULL";
   $resultLogin = sqlsrv_query($conn, $sqlLogin);

@@ -19,16 +19,14 @@
   <script src="../js/jquery.min.js"></script>
   <!-- CSS -->
   <link href="../css/main.css" rel="stylesheet">
-  <?php if($section == "info"){ ?>
-     <link rel="stylesheet" href="../css/info.scss">
-  <?php }else{?>
+  <?php if ($section == "info") { ?>
+    <link rel="stylesheet" href="../css/info.scss">
+  <?php } else { ?>
     <link href="../css/<?php echo $section ?>.css" rel="stylesheet">
-    <?php }?>
-
-  
+  <?php } ?>
 
   <!-- SELECT2 -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
 </head>
@@ -39,17 +37,16 @@
   // Traigo el header
   require_once('../includes/header.php');
 
-
-  if($section == "home"){
+  if ($section == "home") {
   ?>
     <div class="container__images-home">
       <img src="../img/aeropuerto3_optimizado.jpg" alt="">
     </div>
-  <?php 
-  }?>
+  <?php
+  } ?>
 
   <!-- Empieza el contenido especifico -->
-  <div class="container">
+  <div class="<?php echo ($section != "search_flights") ? "container" : null;?>">
     <?php require_once($section . ".php") ?>
   </div>
   <!-- Termina el contenido especifico -->
