@@ -4,8 +4,8 @@ date_default_timezone_set('America/Argentina/Buenos_Aires');
 define('RUTA', '/Linea-Aerea');
 define('CANT_REG_PAG', 30);
 
-$connectionInfo = array( "Database" =>"aerolinea", "CharacterSet" => "UTF-8");
-$conn = sqlsrv_connect("DESKTOP-ICVU3VT", $connectionInfo);
+$connectionInfo = array( "Database" =>"aerolinea","UID"=>"sa", "PWD"=>"123", "CharacterSet" => "UTF-8");
+$conn = sqlsrv_connect("DESKTOP-QB22C4J\SQLEXPRESS", $connectionInfo);
 
 if (!$conn) {
   echo "Conexión no se pudo establecer.<br />";
