@@ -35,7 +35,7 @@
     <?php
     if (!empty($arrayVuelosIda) && ($tipoVuelo == 'ida' || ($tipoVuelo == 'ida-vuelta' && !empty($arrayVuelosVuelta)))) { ?>
         <!-- IDA -->
-        <div class="section__calendar" id="calendar_ida" calendar-date="11/2023">
+        <div class="section__calendar" id="calendar_ida">
 
             <div class="container__data-calendar">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plane-departure" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -68,7 +68,7 @@
         <?php
         if ($tipoVuelo == 'ida-vuelta') { ?>
             <!-- VUELTA -->
-            <div class="section__calendar" id="calendar_vuelta" calendar-date="02/2024">
+            <div class="section__calendar" id="calendar_vuelta">
                 <div class="container__data-calendar">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plane-arrival" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -131,10 +131,18 @@
             <label class="total__value-title">Total por pasajero/a</label>
             <label class="total__value-number" id="footer__total-price"></label>
         </div>
-        <form class="container__view-flights" method="POST" action="">
-            <input type="number" name="flights-ida" hidden disabled>
-            <input type="number" name="flights-vuelta" hidden disabled>
-            <button type="button" class="btn__view-flights" id="btn-view-flights">Ver vuelos</button>
+
+        <form method="POST" action="checkout_passengers.php" class="container__view-flights" id="form__view-flights">
+            <input type="number" name="amt_tickets" id="form-amt-tickets" value="<?php echo $cantPasajes ?>" hidden>
+            <input type="text" name="class" id="form-class-flights" value="<?php echo $clase ?>" hidden>
+            <input type="text" name="type_flights" id="form-type-flights" value="<?php echo $tipoVuelo ?>" hidden>
+            <input type="number" name="flights-ida" id="form-flights-ida" value="<?php echo $idVueloSeleccionado['ida'] ?>" hidden>
+            <?php
+            if ($tipoVuelo == 'ida-vuelta') { ?>
+                <input type="number" name="flights-vuelta" id="form-flights-vuelta" value="<?php echo $idVueloSeleccionado['vuelta'] ?>" hidden>
+            <?php
+            } ?>
+            <button type="submit" class="btn__view-flights">Ver vuelos</button>
         </form>
     </div>
 </div>

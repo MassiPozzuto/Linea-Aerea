@@ -52,7 +52,7 @@ try {
 		$aeropuertoOrigen = $rowVuelo['nombre_origen'];
 		$aeropuertoDestino = $rowVuelo['nombre_destino'];
 		$fechaSalida = $rowVuelo['fecha_partida'];
-		$fechaLlegada = $rowVuelo['fecha_arribo']; // Agrega la columna de fecha de llegada
+		$duracion = $rowVuelo['duration']; // Agrega la columna de fecha de llegada
 		$clase = $rowVuelo['clase'];
 		$nombre = $rowVuelo['nombre'];
 		$apellido = $rowVuelo['apellido'];
@@ -171,8 +171,8 @@ try {
 							<span><?php echo date_format($fechaSalida, "d/m/Y H:i:s") ?></span>
 						</div>
 						<div class="control-item">
-							<h6>Fecha de llegada</h6>
-							<span><?php echo date_format($fechaLlegada, "d/m/Y H:i:s") ?></span> <!--Quitar si no se selecciona-->
+							<h6>Duración</h6>
+							<span><?php echo $duracion ?></span> <!--Quitar si no se selecciona-->
 						</div>
 					</div>
 					<div class="control-body">

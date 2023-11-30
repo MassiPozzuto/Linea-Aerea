@@ -15,20 +15,28 @@ if((isset($_POST["checkbox_ida"]) || isset($_POST["checkbox_ida-vuelta"])) && is
     if(strtotime($fechaActual) > strtotime($_POST['fecha_salida'])){
         ////La fecha ingresada es antes que la actualidad
         echo "No puede volar en el pasado. <br>";
+        die;
     }
     
     if($cantPasajes < 1 || $cantPasajes > 9){
         ////Cantidad de pasajes invalida
+        echo "Puede comprar entre 1 a 9 pasajes por compra. <br>";
+        die;
     }
     if($clase != 'economica' && $clase != 'business' && $clase != 'primera'){
         ////El tipo de clase es incorrecto
+        echo "Seleccione una clase válida. <br>";
+        die;
     }
     if($lugarOrigen == 0 || $lugarDestino == 0){
         ////No ingreso uno o ningun aeropuerto
-
+        echo "Debe ingresar un lugar de origen y uno de destino. <br>";
+        die;
     }
     if($lugarOrigen == $lugarDestino){
         ////El lugar de origen es el mismo que el de destino
+        echo "No puede volar al mismo lugar en el que se encuentra. <br>";
+        die;
     }
 
     $sqlDataAeropuertos = "SELECT CUA FROM Aeropuertos WHERE id = '$lugarOrigen' OR id = '$lugarDestino'";
@@ -40,7 +48,7 @@ if((isset($_POST["checkbox_ida"]) || isset($_POST["checkbox_ida-vuelta"])) && is
         $i++;
     }
     //Cambio el formato de fechas porque SQLSERVER es la pija mas grande que existe en la historia
-    $sqlVuelosIda = "SELECT v.id, v.fecha_partida, v.fecha_arribo, v.escalas, v.precio_base,a.ubicacion AS ubi_arpto_ori, a2.ubicacion AS ubi_arpto_dest, a.nombre AS nom_arpto_ori, 
+    $sqlVuelosIda = "SELECT v.id, v.fecha_partida, v.duration, v.escalas, v.precio_base,a.ubicacion AS ubi_arpto_ori, a2.ubicacion AS ubi_arpto_dest, a.nombre AS nom_arpto_ori, 
                         a2.nombre AS nom_arpto_dest FROM Vuelos v
                     INNER JOIN Aeropuertos a ON v.id_aero_origen = a.id
                     INNER JOIN Aeropuertos a2 ON v.id_aero_destino = a2.id
@@ -48,15 +56,21 @@ if((isset($_POST["checkbox_ida"]) || isset($_POST["checkbox_ida-vuelta"])) && is
                     ORDER BY v.fecha_partida";
     $resultVuelosIda = sqlsrv_query($conn, $sqlVuelosIda);
 
+
+    $idVueloSeleccionado['ida'] = null;
     $i = 0;
     while ($row = sqlsrv_fetch_array($resultVuelosIda, SQLSRV_FETCH_ASSOC)) {
         // Obtén una cadena formateada de la fecha (por ejemplo, 'Y-m-d')
         $arrayVuelosIda[$i] = $row;
-        $arrayVuelosIda[$i]['fecha_partida'] = $row['fecha_partida']->format('Y-m-d');       
+        $arrayVuelosIda[$i]['fecha_partida'] = $row['fecha_partida']->format('Y-m-d');   
+        
+        if($arrayVuelosIda[$i]['fecha_partida'] == date("Y-m-d", strtotime($_POST['fecha_salida']))){
+            $idVueloSeleccionado['ida'] = $arrayVuelosIda[$i]['id'];
+        }
         $i++;
     }
     
-    
+
     if ($tipoVuelo == "ida-vuelta") {
         if (isset($_POST['fecha_regreso'])) {
             $mesDeRegreso = date("m", strtotime($_POST['fecha_regreso']));
@@ -65,7 +79,7 @@ if((isset($_POST["checkbox_ida"]) || isset($_POST["checkbox_ida-vuelta"])) && is
                 echo "No puede regresar en el pasado. <br>";
             }
 
-            $sqlVuelosVuelta = "SELECT v.id, v.fecha_partida, v.fecha_arribo, v.escalas, v.precio_base,a.ubicacion AS ubi_arpto_ori, a2.ubicacion AS ubi_arpto_dest, a.nombre 
+            $sqlVuelosVuelta = "SELECT v.id, v.fecha_partida, v.duration, v.escalas, v.precio_base,a.ubicacion AS ubi_arpto_ori, a2.ubicacion AS ubi_arpto_dest, a.nombre 
                                     AS nom_arpto_ori, a2.nombre AS nom_arpto_dest FROM Vuelos v
                                 INNER JOIN Aeropuertos a ON v.id_aero_origen = a.id
                                 INNER JOIN Aeropuertos a2 ON v.id_aero_destino = a2.id 
@@ -73,10 +87,15 @@ if((isset($_POST["checkbox_ida"]) || isset($_POST["checkbox_ida-vuelta"])) && is
                                 ORDER BY fecha_partida";
             $resultVuelosVuelta = sqlsrv_query($conn, $sqlVuelosVuelta);
 
+            $idVueloSeleccionado['vuelta'] = null;
             $i = 0;
             while ($row = sqlsrv_fetch_array($resultVuelosVuelta, SQLSRV_FETCH_ASSOC)) {
                 $arrayVuelosVuelta[$i] = $row;
                 $arrayVuelosVuelta[$i]['fecha_partida'] = $row['fecha_partida']->format('Y-m-d');
+
+                if ($arrayVuelosVuelta[$i]['fecha_partida'] == date("Y-m-d", strtotime($_POST['fecha_salida']))) {
+                    $idVueloSeleccionado['vuelta'] = $arrayVuelosVuelta[$i]['id'];
+                }
                 $i++;
             }
         }
@@ -124,6 +143,8 @@ function crearCalendario($fecha, $dataVuelos)
                 echo '<li class="calendar__day day-selectable '. (($day == $dayCounter) ? 'day-selected' : null) . '" id="flight_' . $dataVuelos[$i]['id'] . '" data-day="' . $dataVuelos[$i]['fecha_partida'] . '">
                         <div>';
                 $daySelectable = true;
+
+                
             } else {
                 echo '<li class="calendar__day ' . (($day == $dayCounter && $firstDay <  $cantVeces) ? 'day-selected' : null) . '">
                         <div>';
