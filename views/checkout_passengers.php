@@ -1,16 +1,46 @@
+<script src="https://sdk.mercadopago.com/js/v2"></script>
 <?php
- use MercadoPago\MercadoPagoConfig;
- MercadoPagoConfig::setAccessToken("PROD_ACCESS_TOKEN");
+require __DIR__ .  '../../vendor/autoload.php';
+use MercadoPago\MercadoPagoConfig;
+use MercadoPago\SDK;
+MercadoPago\SDK::setAccessToken("TEST-155127244654867-110309-0372cbf97234a514c4b550891cbf67d1-585128408");
+// Cria um objeto de preferência
+$preference = new MercadoPago\Preference();
+
+// Cria um item na preferência
+$item = new MercadoPago\Item();
+
+$productos=[];
+$item->title = 'Pagar vuelo';
+$item->currency_id = 'ARS';
+$item->picture_url = 'https://www.mercadopago.com/org-img/MP3/home/logomp3.gif';
+$item->description = 'Pagar el/los pasajes';
+$item->category_id = 'art';
+$item->quantity = 1;
+$item->unit_price = 10;
+array_push($productos, $item);
+$preference->items = $productos;
+
+// URLs de retorno
+$back_urls = array(
+    'success' => 'https://www.success.com',
+    'failure' => 'http://www.failure.com',
+    'pending' => 'http://www.pending.com'
+);
+$preference->back_urls = $back_urls;
+
+$preference->save();
+
 if (!isset($error)) { 
-    // SDK de Mercado Pago
-   
-    // Agrega credenciales
-  
+
+
+
     ?>
      
-    ?>
 
-    <form action="#poner_pagina_para_pagar_je" method="POST" id="form__checkout-passengers">
+
+
+    <form action="#" method="POST" id="form__checkout-passengers">
 
         <input type="text" name="class" id="form-class-flights" value="<?php echo $clase ?>" hidden>
         <input type="text" name="type_flights" id="form-type-flights" value="<?php echo $tipoVuelo ?>" hidden>
@@ -55,7 +85,7 @@ if (!isset($error)) {
                                 <select class="select-nacionality" name="passenger_from-<?php echo $i ?>" id="">
                                     <option value="argentina" selected>Argentina</option>
                                     <option value="uruguay">Uruguay</option>
-                                    <option value="argentina">Argentinqwerwergergergergerfgergergergertgertgrgeerga</option>
+                                    <option value="argentina">Argentina</option>
                                     <option value="brasil">Brasil</option>
                                 </select>
                                 <p class="errormessage__form"></p>
@@ -97,9 +127,25 @@ if (!isset($error)) {
             </div>
         </div>
 
-        <div class="container__btn-submit">
-            <button type="submit">Ir a pagar</button>
-        </div>
+        <div class="container__btn-submit" id="wallet_container">
+            
+        
+        <script>
+      const mp = new MercadoPago('TEST-af713ecf-7333-48b8-ab69-ffec031b22bc', {
+        locale: 'es-AR'
+      });
+
+      mp.bricks().create("wallet", "wallet_container", {
+        initialization: {
+            preferenceId: '<?php echo $preference->id;?>',
+        },
+        render: {
+            container: 'container__btn-submit',
+            label: 'Ir a pagar',
+        }
+      });
+  </script>
+    </div>
     </form>
 
     <aside>
