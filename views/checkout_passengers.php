@@ -23,9 +23,9 @@ $preference->items = $productos;
 
 // URLs de retorno
 $back_urls = array(
-    'success' => 'https://www.success.com',
-    'failure' => 'http://www.failure.com',
-    'pending' => 'http://www.pending.com'
+    'success' => 'localhost/controllers/success.php',
+    'failure' => 'localhost/controllers/fail.php',
+    'pending' => 'localhost/controllers/pending.php'
 );
 $preference->back_urls = $back_urls;
 
