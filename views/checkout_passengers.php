@@ -15,7 +15,6 @@ if (!isset($error)) {
             <div class="title-passenger">
                 <h3>Datos de los pasajeros</h3>
             </div>
-
             <?php
             for ($i = 1; $i <= $cantPasajes; $i++) { ?>
                 <div class="container__passenger">
