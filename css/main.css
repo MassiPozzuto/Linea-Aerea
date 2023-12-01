@@ -921,3 +921,18 @@ div.rotate span:nth-child(3) {
   padding-left: 45px;
   width: 101%;
 }
+
+
+
+.form-group.fail input,
+.form-group.fail select {
+  border-color: red;
+}
+
+.errormessage__form {
+	display: none;
+	font-size: 13px;
+	color: red;
+	margin: 3px 3px 0 3px;
+    text-align: start;
+}

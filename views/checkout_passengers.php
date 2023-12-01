@@ -1,8 +1,18 @@
 <?php
 if (!isset($error)) { ?>
 
-    <form action="#" method="GET" class="">
-        <div>
+    <form action="#poner_pagina_para_pagar_je" method="POST" id="form__checkout-passengers">
+
+        <input type="text" name="class" id="form-class-flights" value="<?php echo $clase ?>" hidden>
+        <input type="text" name="type_flights" id="form-type-flights" value="<?php echo $tipoVuelo ?>" hidden>
+        <input type="number" name="flights-ida" id="form-flights-ida" value="<?php echo $rowVuelos[0] ?>" hidden>
+        <?php
+        if ($tipoVuelo == 'ida-vuelta') { ?>
+            <input type="number" name="flights-vuelta" id="form-flights-vuelta" value="<?php echo $rowVuelos[1] ?>" hidden>
+        <?php
+        } ?>
+
+        <div class="container__all-passengers" id="info_passengers-<?php echo $cantPasajes ?>">
             <div class="title-passenger">
                 <h3>Datos de los pasajeros</h3>
             </div>
@@ -18,23 +28,23 @@ if (!isset($error)) { ?>
                         </svg>
                         <span>Pasajero <?php echo $i; ?></span>
                     </div>
-                    <div>
+                    <div class="container__passenger-inputs">
                         <div class="form-group-double">
                             <div class="form-group">
                                 <label>Nombre</label>
-                                <input type="text" id="" name="" class="form-input">
+                                <input type="text" id="" name="passenger_name-<?php echo $i ?>" class="form-input">
                                 <p class="errormessage__form"></p>
                             </div>
                             <div class="form-group">
                                 <label>Apellido</label>
-                                <input type="text" id="" name="" class="form-input">
+                                <input type="text" id="" name="passenger_surname-<?php echo $i ?>" class="form-input">
                                 <p class="errormessage__form"></p>
                             </div>
                         </div>
                         <div class="form-group-double">
                             <div class="form-group group-for-nacionality">
                                 <label>Nacionalidad</label>
-                                <select class="select-nacionality" name="" id="">
+                                <select class="select-nacionality" name="passenger_from-<?php echo $i ?>" id="">
                                     <option value="argentina" selected>Argentina</option>
                                     <option value="uruguay">Uruguay</option>
                                     <option value="argentina">Argentinqwerwergergergergerfgergergergertgertgrgeerga</option>
@@ -44,7 +54,7 @@ if (!isset($error)) { ?>
                             </div>
                             <div class="form-group">
                                 <label>DNI/Pasaporte</label>
-                                <input type="text" id="" name="" class="form-input input-no-flechas">
+                                <input type="text" id="" name="passenger_dni-<?php echo $i ?>" class="form-input input-no-flechas">
                                 <p class="errormessage__form"></p>
                             </div>
                         </div>
@@ -54,26 +64,26 @@ if (!isset($error)) { ?>
             } ?>
         </div>
 
-        <div>
+        <div class="">
             <div class="title-passenger">
                 <h3>Datos de la reserva</h3>
             </div>
-            <div class="container__passenger">
+            <div class="container__passenger  container__passenger-inputs">
                 <div class="form-group-double">
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="text" id="" name="" class="form-input">
+                        <input type="text" id="" name="reserve_email" class="form-input">
                         <p class="errormessage__form"></p>
                     </div>
                     <div class="form-group">
                         <label>Confirmá tu email</label>
-                        <input type="text" id="" name="" class="form-input">
+                        <input type="text" id="" name="reserve_email-confirm" class="form-input">
                         <p class="errormessage__form"></p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Teléfono</label>
-                    <input type="number" id="" name="" class="form-input input-no-flechas">
+                    <input type="number" id="" name="reserve_tel" class="form-input input-no-flechas">
                     <p class="errormessage__form"></p>
                 </div>
             </div>
@@ -128,3 +138,6 @@ if (!isset($error)) { ?>
 
 <?php
 } ?>
+
+<script src="../js/main.js" type="text/javascript"></script>
+<script src="../js/checkout_passengers.js" type="text/javascript"></script>
