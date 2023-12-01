@@ -1,5 +1,14 @@
 <?php
-if (!isset($error)) { ?>
+ use MercadoPago\MercadoPagoConfig;
+ MercadoPagoConfig::setAccessToken("PROD_ACCESS_TOKEN");
+if (!isset($error)) { 
+    // SDK de Mercado Pago
+   
+    // Agrega credenciales
+  
+    ?>
+     
+    ?>
 
     <form action="#" method="GET" class="">
         <div>
